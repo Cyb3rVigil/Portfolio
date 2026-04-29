@@ -370,7 +370,7 @@
 
     <!-- Interactive Scripts -->
     <script>
-        // --- Typing Effect for Hero ---
+        // Typing Effect
         const nameText = "cyb3r.vigil";
         const titleText = "Aspiring Security Researcher";
         let i = 0, j = 0;
@@ -380,7 +380,7 @@
                 document.getElementById("hero-name").innerHTML += nameText.charAt(i);
                 i++;
                 setTimeout(typeWriter, 100);
-            } else if (j === 0) {
+            } else {
                 setTimeout(typeTitle, 500);
             }
         }
@@ -393,25 +393,21 @@
             }
         }
         
-        // Start typing after short delay
         setTimeout(typeWriter, 1000);
 
-        // --- Intersection Observer for Progress Bars ---
+        // Progress Bars
         const progressObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const bar = entry.target;
                     bar.style.width = bar.getAttribute('data-width');
-                    progressObserver.unobserve(bar);
                 }
             });
         }, { threshold: 0.5 });
 
-        document.querySelectorAll('.progress-bar').forEach(bar => {
-            progressObserver.observe(bar);
-        });
+        document.querySelectorAll('.progress-bar').forEach(bar => progressObserver.observe(bar));
 
-        // --- Network Node Canvas Background ---
+        // Network Canvas
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, particles;
@@ -420,8 +416,7 @@
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             particles = [];
-            const particleCount = window.innerWidth < 768 ? 40 : 80;
-
+            const particleCount = width < 768 ? 40 : 80;
             for(let i = 0; i < particleCount; i++) {
                 particles.push({
                     x: Math.random() * width,
@@ -433,41 +428,20 @@
             }
         }
 
-        let mouse = { x: null, y: null };
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-        window.addEventListener('mouseout', () => {
-            mouse.x = null; mouse.y = null;
-        });
-
         function animateCanvas() {
-            requestAnimationFrame(animateCanvas);
             ctx.clearRect(0, 0, width, height);
-            
             ctx.fillStyle = '#00ff9d';
-            ctx.strokeStyle = 'rgba(0, 255, 157, 0.15)';
-            ctx.lineWidth = 1;
-
-            for(let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Bounce off edges
+            ctx.strokeStyle = 'rgba(0, 255, 157, 0.1)';
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
                 if(p.x < 0 || p.x > width) p.vx *= -1;
                 if(p.y < 0 || p.y > height) p.vy *= -1;
-
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
-
-                // Connect particles
                 for(let j = i + 1; j < particles.length; j++) {
                     let p2 = particles[j];
-                    let dist = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
-                    
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
                     if(dist < 120) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
@@ -475,51 +449,31 @@
                         ctx.stroke();
                     }
                 }
-
-                // Connect to mouse
-                if (mouse.x != null) {
-                    let distMouse = Math.sqrt(Math.pow(p.x - mouse.x, 2) + Math.pow(p.y - mouse.y, 2));
-                    if(distMouse < 150) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = 'rgba(0, 255, 157, 0.4)';
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
-                        ctx.strokeStyle = 'rgba(0, 255, 157, 0.15)'; // reset
-                    }
-                }
-            }
+            });
+            requestAnimationFrame(animateCanvas);
         }
 
         window.addEventListener('resize', initCanvas);
         initCanvas();
         animateCanvas();
-        (function() {
-    const messages = [
-            "Looking to mentor an aspiring red teamer, squad up for beginner CTFs, or hire for a remote internship or flexible part-time role? The terminal is open. Establish a secure handshake using the LinkedIn or GitHub links below.",
-            "Ready to collaborate on cybersecurity projects or discuss red teaming strategies? Reach out through the channels below and let's start a secure session.",
-            "Interested in recruitment or technical mentorship? I'm currently seeking internships and part-time opportunities. My communication ports are open.",
-            "From CTF challenges to real-world security audits, I am eager to learn and contribute. Connect with me on GitHub or LinkedIn to initiate communication.",
-            "System Status: Online. Awaiting handshake. If you have opportunities for an aspiring security professional, please use the encrypted links below to transmit your message."
-        ];
 
-    const textElement = document.getElementById('rotating-contact-text');
-
-    let currentIndex = parseInt(localStorage.getItem('contactMsgIndex')) || 0;
-
-    if (currentIndex >= messages.length) {
-        currentIndex = 0;
-    }
-
-    textElement.textContent = messages[currentIndex];
-
-    const nextIndex = (currentIndex + 1) % messages.length;
-    localStorage.setItem('contactMsgIndex', nextIndex);
-})();
+        // Mobile Menu Toggle
         function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("hidden");
-}
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("hidden");
+        }
 
+        // Rotating Text Logic
+        const messages = [
+            "Looking to mentor an aspiring red teamer? The terminal is open.",
+            "Ready to collaborate on cybersecurity projects? Reach out below.",
+            "Seeking internships and part-time opportunities. Ports open.",
+            "System Status: Online. Awaiting handshake."
+        ];
+        const textElement = document.getElementById('rotating-contact-text');
+        let msgIndex = parseInt(localStorage.getItem('contactMsgIndex')) || 0;
+        textElement.textContent = messages[msgIndex % messages.length];
+        localStorage.setItem('contactMsgIndex', (msgIndex + 1) % messages.length);
     </script>
 </body>
 </html>
