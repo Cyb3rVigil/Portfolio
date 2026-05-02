@@ -62,6 +62,10 @@
             z-index: 9999;
             opacity: 0.4;
         }
+        #terminal-output p {
+            margin: 2px 0;
+            font-family: monospace;
+        }
 
         /* Canvas Background */
         #network-canvas {
@@ -160,7 +164,8 @@
             <a href="#about" class="hover:text-neon">[01_SYS_INFO]</a>
             <a href="#metrics" class="hover:text-neon">[02_METRICS]</a>
             <a href="#arsenal" class="hover:text-neon">[03_ARSENAL]</a>
-            <a href="#contact" class="hover:text-neon">[04_CONNECT]</a>
+            <a href="#terminal" class="hover:text-neon">[04_TERMINAL]</a>
+            <a href="#contact" class="hover:text-neon">[05_CONNECT]</a>
         </div>
 
         <!-- Mobile Button -->
@@ -354,7 +359,29 @@
 
             </div>
         </section>
+        <!-- Terminal Section -->
+        <section id="terminal" class="py-20">
+            <div class="flex items-center mb-10 gap-4">
+                <div class="h-[1px] bg-neon w-12"></div>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-widest text-white">
+                    04_TERMINAL_ACCESS
+                </h2>
+                <div class="h-[1px] bg-muted flex-grow"></div>
+            </div>
 
+            <div class="cyber-border p-6 bg-black/60">
+                <div id="terminal-output" class="text-sm text-muted mb-4 h-64 overflow-y-auto">
+                    <p>> Terminal initialized...</p>
+                    <p>> Type <span class="text-neon">help</span> to begin</p>
+                </div>
+
+                <div class="flex items-center">
+                    <span class="text-neon mr-2">root@cyb3r:~$</span>
+                    <input id="terminal-input" type="text" class="bg-transparent outline-none text-white w-full" placeholder="enter command..." />
+                </div>
+            </div>
+        </section>
+        
         <!-- Contact Section -->
         <section id="contact" class="py-20 border-t border-muted/20 mt-10">
           <div class="text-center">
@@ -393,6 +420,7 @@
 
     <!-- Interactive Scripts -->
     <script>
+        
         // Typing Effect
         const nameText = "cyb3r.vigil";
         const titleText = "Aspiring Security Researcher";
@@ -497,6 +525,62 @@
         let msgIndex = parseInt(localStorage.getItem('contactMsgIndex')) || 0;
         textElement.textContent = messages[msgIndex % messages.length];
         localStorage.setItem('contactMsgIndex', (msgIndex + 1) % messages.length);
+    // TERMINAL LOGIC
+        const terminalInput = document.getElementById("terminal-input");
+        const terminalOutput = document.getElementById("terminal-output");
+        
+        terminalInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                const command = terminalInput.value.trim().toLowerCase();
+                printOutput("> " + command);
+                handleCommand(command);
+                terminalInput.value = "";
+            }
+        });
+
+        function printOutput(text) {
+            const p = document.createElement("p");
+            p.innerHTML = text;
+            terminalOutput.appendChild(p);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function handleCommand(cmd) {
+            switch (cmd) {
+                case "help":
+                    printOutput("Available commands:");
+                    printOutput("whoami | skills | projects | contact | clear");
+                    break;
+
+                case "whoami":
+                    printOutput("cyb3r.vigil - Aspiring Red Teamer");
+                    break;
+
+                case "skills":
+                    printOutput("Recon: Nmap, Wireshark");
+                    printOutput("Scripting: Python, Bash");
+                    break;
+
+                case "projects":
+                    printOutput("Coming soon: Security Labs & Writeups");
+                    break;
+
+                case "contact":
+                    printOutput("LinkedIn: cyb3rvigil");
+                    printOutput("GitHub: Cyb3rVigil");
+                    break;
+
+                case "clear":
+                    terminalOutput.innerHTML = "";
+                    break;
+
+                default:
+                    printOutput("Command not found. Type 'help'");
+            }
+        }
+        document.getElementById("terminal").addEventListener("click", () => {
+            terminalInput.focus();
+        });
     </script>
 </body>
 </html>
