@@ -258,45 +258,234 @@
 
         <!-- Metrics / THM Section -->
         <section id="metrics" class="py-20">
-            <div class="flex items-center mb-10 gap-4">
-                <div class="h-[1px] bg-neon w-12"></div>
-                <h2 class="text-2xl md:text-3xl font-bold tracking-widest text-white">02_METRICS <span class="text-muted text-lg">(TRYHACKME_DATA)</span></h2>
-                <div class="h-[1px] bg-muted flex-grow"></div>
-            </div>
+    <div class="flex items-center mb-10 gap-4">
+        <div class="h-[1px] bg-neon w-12"></div>
 
-            <div class="cyber-border p-8 bg-black/40">
-                <div class="text-center mb-10">
-                    <div class="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-2 text-shadow-neon glitch-hover">TOP 15%</div>
-                    <div class="text-muted tracking-widest">GLOBAL RANKING PERCENTILE</div>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-widest text-white">
+            02_METRICS
+            <span class="text-muted text-lg">(LIVE_SECURITY_TELEMETRY)</span>
+        </h2>
+
+        <div class="h-[1px] bg-muted flex-grow"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- MAIN THM CARD -->
+        <div class="lg:col-span-2 cyber-border p-8 bg-black/40">
+
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <h3 class="text-2xl font-bold text-white">
+                        TRYHACKME_STATUS
+                    </h3>
+
+                    <p class="text-muted text-sm mt-1">
+                        Live synced offensive-security metrics
+                    </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-                    <!-- Score -->
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-white tracking-widest text-sm">CAPABILITY SCORE</span>
-                            <span class="text-neon font-bold">43</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" data-width="43%"></div>
-                        </div>
-                        <div class="text-xs text-muted mt-2 text-right">Target: 100+</div>
-                    </div>
-
-                    <!-- CTFs -->
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-white tracking-widest text-sm">CTFs COMPLETED</span>
-                            <span class="text-neon font-bold">03</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" data-width="30%"></div>
-                        </div>
-                        <div class="text-xs text-muted mt-2 text-right">Initiate Phase 2</div>
-                    </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-neon animate-pulse"></div>
+                    <span class="text-neon text-sm">LIVE</span>
                 </div>
             </div>
-        </section>
+
+            <!-- TOP PERCENT -->
+            <div class="text-center mb-12">
+                <div id="rankPercent"
+                    class="text-5xl md:text-7xl font-bold text-white glitch-hover">
+                    LOADING...
+                </div>
+
+                <div class="text-muted tracking-widest mt-2">
+                    GLOBAL RANKING PERCENTILE
+                </div>
+            </div>
+
+            <!-- GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- SCORE -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white tracking-widest text-sm">
+                            CAPABILITY SCORE
+                        </span>
+
+                        <span id="scoreText"
+                            class="text-neon font-bold">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div id="scoreBar"
+                            class="progress-bar"
+                            style="width:0%">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STREAK -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white tracking-widest text-sm">
+                            CURRENT STREAK
+                        </span>
+
+                        <span id="streakText"
+                            class="text-neon font-bold">
+                            0 DAYS
+                        </span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div id="streakBar"
+                            class="progress-bar"
+                            style="width:0%">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROOMS -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white tracking-widest text-sm">
+                            ROOMS COMPLETED
+                        </span>
+
+                        <span id="roomsText"
+                            class="text-neon font-bold">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div id="roomsBar"
+                            class="progress-bar"
+                            style="width:0%">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BADGES -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white tracking-widest text-sm">
+                            BADGES EARNED
+                        </span>
+
+                        <span id="badgesText"
+                            class="text-neon font-bold">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div id="badgesBar"
+                            class="progress-bar"
+                            style="width:0%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- GLOBAL RANK -->
+            <div class="mt-10 cyber-border p-6 bg-black/30">
+                <div class="flex justify-between items-center">
+
+                    <div>
+                        <div class="text-muted text-sm">
+                            GLOBAL RANK
+                        </div>
+
+                        <div id="globalRank"
+                            class="text-3xl text-white font-bold mt-2">
+                            #000000
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <div class="text-muted text-sm">
+                            PLATFORM
+                        </div>
+
+                        <div class="text-neon text-xl font-bold mt-2">
+                            TRYHACKME
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SIDE PANEL -->
+        <div class="space-y-6">
+
+            <!-- TERMINAL -->
+            <div class="cyber-border p-6 bg-black/40">
+                <div class="text-alert text-sm mb-4">
+                    root@cyb3r-vigil:~#
+                </div>
+
+                <div id="terminal"
+                    class="text-xs text-neon leading-6 h-64 overflow-hidden">
+                </div>
+            </div>
+
+            <!-- HTB -->
+            <div class="cyber-border p-6 bg-black/40">
+
+                <h3 class="text-white font-bold tracking-widest mb-6">
+                    HACKTHEBOX_STATS
+                </h3>
+
+                <div class="space-y-4">
+
+                    <div class="flex justify-between text-sm">
+                        <span class="text-muted">RANK</span>
+                        <span id="htbRank" class="text-neon">
+                            Loading...
+                        </span>
+                    </div>
+
+                    <div class="flex justify-between text-sm">
+                        <span class="text-muted">PWNED BOXES</span>
+                        <span id="htbBoxes" class="text-neon">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="flex justify-between text-sm">
+                        <span class="text-muted">CHALLENGES</span>
+                        <span id="htbChallenges" class="text-neon">
+                            0
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ACHIEVEMENTS -->
+            <div class="cyber-border p-6 bg-black/40">
+
+                <h3 class="text-white font-bold tracking-widest mb-6">
+                    RECENT_ACHIEVEMENTS
+                </h3>
+
+                <div id="achievementFeed"
+                    class="space-y-4 text-sm">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
         <!-- Arsenal Section -->
         <section id="arsenal" class="py-20">
@@ -582,5 +771,168 @@
             terminalInput.focus();
         });
     </script>
+    <script>
+
+const THM_USERNAME = "Satsangi.Abhinav";
+const HTB_USERNAME = "SatsangiAbhinav";
+
+async function loadTHMStats() {
+
+    try {
+
+        const response = await fetch(
+            `https://tryhackme.com/api/user/rank/${"Satsangi.Abhinav"}`
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        // VALUES
+        const score = data.score || 0;
+        const rank = data.rank || 0;
+
+        // CUSTOM VALUES
+        const streak = data.streak || 7;
+        const rooms = data.completed_rooms || 25;
+        const badges = data.badges || 6;
+
+        // PERCENTILE
+        const percentile = Math.max(
+            1,
+            Math.floor((1 / rank) * 100000)
+        );
+
+        // UPDATE UI
+        document.getElementById("rankPercent").innerText =
+            `TOP ${percentile}%`;
+
+        document.getElementById("scoreText").innerText =
+            score;
+
+        document.getElementById("scoreBar").style.width =
+            Math.min(score, 100) + "%";
+
+        document.getElementById("streakText").innerText =
+            `${streak} DAYS`;
+
+        document.getElementById("streakBar").style.width =
+            Math.min(streak * 5, 100) + "%";
+
+        document.getElementById("roomsText").innerText =
+            rooms;
+
+        document.getElementById("roomsBar").style.width =
+            Math.min(rooms / 2, 100) + "%";
+
+        document.getElementById("badgesText").innerText =
+            badges;
+
+        document.getElementById("badgesBar").style.width =
+            Math.min(badges * 10, 100) + "%";
+
+        document.getElementById("globalRank").innerText =
+            "#" + rank;
+
+        loadAchievements(rooms, badges, streak);
+
+    } catch (err) {
+
+        console.error(err);
+
+        document.getElementById("rankPercent").innerText =
+            "OFFLINE";
+    }
+}
+
+function loadAchievements(rooms, badges, streak) {
+
+    const achievements = [
+
+        `> Completed ${rooms} THM rooms`,
+        `> Earned ${badges} badges`,
+        `> Maintained ${streak} day streak`,
+        `> Active offensive security training`,
+        `> Recon & exploitation labs online`
+
+    ];
+
+    const feed = document.getElementById("achievementFeed");
+
+    feed.innerHTML = "";
+
+    achievements.forEach(item => {
+
+        feed.innerHTML += `
+            <div class="border-l-2 border-neon pl-3 text-muted">
+                ${item}
+            </div>
+        `;
+    });
+}
+
+/* TERMINAL ANIMATION */
+
+const terminalLines = [
+
+    "[+] Initializing recon modules...",
+    "[+] Loading nmap scanners...",
+    "[+] Establishing encrypted tunnel...",
+    "[+] Syncing TryHackMe telemetry...",
+    "[+] Monitoring active learning streak...",
+    "[+] Injecting cyberpunk UI modules...",
+    "[+] Offensive security dashboard online.",
+    "[+] Awaiting next target..."
+
+];
+
+let terminalIndex = 0;
+
+function animateTerminal() {
+
+    const terminal =
+        document.getElementById("terminal");
+
+    if (terminalIndex < terminalLines.length) {
+
+        terminal.innerHTML +=
+            terminalLines[terminalIndex] + "<br>";
+
+        terminal.scrollTop =
+            terminal.scrollHeight;
+
+        terminalIndex++;
+
+    } else {
+
+        terminal.innerHTML = "";
+        terminalIndex = 0;
+    }
+}
+
+setInterval(animateTerminal, 1400);
+
+/* MOCK HTB STATS */
+
+function loadHTBStats() {
+
+    // Replace with real HTB API later
+
+    document.getElementById("htbRank")
+        .innerText = "Hacker";
+
+    document.getElementById("htbBoxes")
+        .innerText = "12";
+
+    document.getElementById("htbChallenges")
+        .innerText = "34";
+}
+
+loadTHMStats();
+loadHTBStats();
+
+setInterval(loadTHMStats, 300000);
+
+</script>
 </body>
 </html>
