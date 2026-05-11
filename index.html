@@ -23,7 +23,7 @@
                         neon: '#00ff9d',
                         alert: '#ff003c',
                         muted: '#5a7b6b',
-                        surface: 'rgba(0, 255, 157, 0.03)'
+                        surface: '#00FF9D08'
                     },
                     fontFamily: {
                         mono: ['"Share Tech Mono"', 'monospace'],
@@ -64,7 +64,7 @@
         }
         #terminal-output p {
             margin: 2px 0;
-            font-family: monospace;
+            font-family: inherit;
         }
 
         /* Canvas Background */
@@ -138,8 +138,6 @@
         ::-webkit-scrollbar-thumb { background: #5a7b6b; }
         ::-webkit-scrollbar-thumb:hover { background: #00ff9d; }
 
-        /* Utility classes */
-        .decrypt-text { min-height: 1.5em; }
     </style>
 </head>
 <body class="antialiased">
@@ -178,7 +176,8 @@
         <a href="#about">[01_SYS_INFO]</a>
         <a href="#metrics">[02_METRICS]</a>
         <a href="#arsenal">[03_ARSENAL]</a>
-        <a href="#contact">[04_CONNECT]</a>
+        <a href="#terminal">[04_TERMINAL]</a> 
+        <a href="#contact">[05_CONNECT]</a>
     </div>
 </nav>
 
@@ -220,7 +219,7 @@
                 <div class="h-[1px] bg-muted flex-grow"></div>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                 <div class="cyber-border p-8">
                     <div class="flex justify-between items-center mb-6 border-b border-muted/30 pb-2">
                         <span class="text-alert text-sm font-bold">~./whoami.sh</span>
@@ -431,7 +430,7 @@
                     root@cyb3r-vigil:~#
                 </div>
 
-                <div id="terminal"
+                <div id="terminal-anim"
                     class="text-xs text-neon leading-6 h-64 overflow-hidden">
                 </div>
             </div>
@@ -599,8 +598,6 @@
           </div>
     </div>
 </section>
-</script>
-
         <footer class="text-center text-xs text-muted py-8 border-t border-muted/10 mt-20">
             <p>> Designed by Cyb3r.Vigil // Sequence Complete.</p>
         </footer>
@@ -634,18 +631,6 @@
         }
         
         setTimeout(typeWriter, 1000);
-
-        // Progress Bars
-        const progressObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const bar = entry.target;
-                    bar.style.width = bar.getAttribute('data-width');
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.progress-bar').forEach(bar => progressObserver.observe(bar));
 
         // Network Canvas
         const canvas = document.getElementById('network-canvas');
@@ -767,45 +752,36 @@
                     printOutput("Command not found. Type 'help'");
             }
         }
-        document.getElementById("terminal").addEventListener("click", () => {
+        document.getElementById("terminal-anim").addEventListener("click", () => {
             terminalInput.focus();
         });
     </script>
     <script>
 
 const THM_USERNAME = "Cyb3rV1gil";
-const HTB_USERNAME = "SatsangiAbhinav";
-
 async function loadTHMStats() {
 
     try {
 
         const response = await fetch(
-            `https://tryhackme.com/api/user/rank/${Cyb3rV1gil}`
+            `https://tryhackme.com/api/user/rank/${THM_USERNAME}`
         );
 
         const data = await response.json();
-
-        console.log(data);
 
         // VALUES
         const score = data.score || 0;
         const rank = data.rank || 0;
 
         // CUSTOM VALUES
-        const streak = data.streak || 7;
-        const rooms = data.completed_rooms || 25;
-        const badges = data.badges || 6;
-
+        const streak = data.streak || 0;
+        const rooms  = data.completed_rooms || 0;
+        const badges = data.badges || 0;
         // PERCENTILE
-        const percentile = Math.max(
-            1,
-            Math.floor((1 / rank) * 100000)
-        );
-
+        const percentile = data.userRank?.percentile || null;
+        document.getElementById("rankPercent").innerText = percentile ? `TOP ${percentile}%` : "N/A";
         // UPDATE UI
-        document.getElementById("rankPercent").innerText =
-            `TOP ${percentile}%`;
+        document.getElementById("rankPercent").innerText = `TOP ${percentile}%`;
 
         document.getElementById("scoreText").innerText =
             score;
@@ -891,7 +867,7 @@ let terminalIndex = 0;
 function animateTerminal() {
 
     const terminal =
-        document.getElementById("terminal");
+       document.getElementById("terminal-anim");
 
     if (terminalIndex < terminalLines.length) {
 
@@ -910,22 +886,13 @@ function animateTerminal() {
     }
 }
 
-setInterval(animateTerminal, 1400);
-
-/* MOCK HTB STATS */
-
-function loadHTBStats() {
+    setInterval(animateTerminal, 1400);
 
     // Replace with real HTB API later
-
-    document.getElementById("htbRank")
-        .innerText = "Hacker";
-
-    document.getElementById("htbBoxes")
-        .innerText = "12";
-
-    document.getElementById("htbChallenges")
-        .innerText = "34";
+   function loadHTBStats() {
+    document.getElementById("htbRank").innerText = "Hacker";
+    document.getElementById("htbBoxes").innerText = "12";
+    document.getElementById("htbChallenges").innerText = "34";
 }
 
 loadTHMStats();
