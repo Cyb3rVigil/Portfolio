@@ -21,12 +21,15 @@ Welcome to my GitHub! I am a Computer Science Engineering student with a deep pa
 **Core Languages & Scripting**
 * Python 🐍
 * Bash Scripting 💻
+* HTML 🖥️
+* CSS 🎨
+* C ⚙️
 
 **Operating Systems & Networking**
 * Kali Linux 🐉
 * Nmap 🗺️
 * Wireshark 🦈
-
+* Ettercap
 ---
 
 ## 🚀 Future Goals
