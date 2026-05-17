@@ -1,0 +1,87 @@
+/* Custom ambient background configuration */
+.bg-cyber-radial {
+    background: radial-gradient(circle at 50% -20%, rgba(0, 255, 102, 0.08) 0%, rgba(3, 3, 6, 0) 60%);
+}
+
+/* CRT Scanline effect */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.4) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.08;
+}
+
+/* Soft glowing styling */
+.glow-text {
+    text-shadow: 0 0 4px rgba(0, 255, 102, 0.5), 0 0 12px rgba(0, 255, 102, 0.2);
+}
+.glow-border {
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
+}
+
+/* Blinking terminal prompt cursor */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.1em;
+    background-color: #00ff66;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Custom CSS Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #030306; 
+}
+::-webkit-scrollbar-thumb {
+    background: #003311; 
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00ff66; 
+}
+
+/* Subtle background overlay grid */
+.cyber-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(0, 255, 102, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 102, 0.02) 1px, transparent 1px);
+}
+
+/* Glassmorphism layouts with solid opaque backings */
+.cyber-card {
+    background: rgba(10, 10, 14, 0.96);
+    border: 1px solid rgba(0, 255, 102, 0.25);
+    backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cyber-card:hover {
+    border-color: rgba(0, 255, 102, 0.6);
+    box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Inputs terminal outline glow */
+.terminal-input-field:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+}
+
