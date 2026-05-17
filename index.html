@@ -494,59 +494,76 @@
                 <div class="h-[1px] bg-muted flex-grow"></div>
             </div>
 
-            <!-- Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <!-- Recon & Scanning -->
-                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="text-alert font-bold tracking-widest mb-4 border-b border-alert/30 pb-2">>> RECON_&_SCANNING</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Nmap
+                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300 bg-black/40">
+                    <h3 class="text-alert font-bold tracking-widest mb-6 border-b border-alert/30 pb-2">>> RECON_SCAN</h3>
+                    <ul class="space-y-5">
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Nmap / Zenmap</span> <span class="text-neon text-xs">85%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[85%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Zenmap
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Wireshark</span> <span class="text-neon text-xs">70%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[70%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Maltego
-                        </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Wireshark
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Attack & Spoofing -->
-                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="text-alert font-bold tracking-widest mb-4 border-b border-alert/30 pb-2">>> ATTACK_&_SPOOFING</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Airgeddon
-                        </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Ettercap
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Maltego</span> <span class="text-neon text-xs">50%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[50%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Environment & Scripts -->
-                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="text-alert font-bold tracking-widest mb-4 border-b border-alert/30 pb-2">>> CORE_ENV</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Kali Linux
+                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300 bg-black/40">
+                    <h3 class="text-alert font-bold tracking-widest mb-6 border-b border-alert/30 pb-2">>> WEB_EXPLOIT</h3>
+                    <ul class="space-y-5">
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Burp Suite</span> <span class="text-neon text-xs">80%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[80%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Python
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Gobuster / FFuF</span> <span class="text-neon text-xs">75%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[75%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> HTML
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">SQLmap</span> <span class="text-neon text-xs">65%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[65%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Css
+                    </ul>
+                </div>
+
+                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300 bg-black/40">
+                    <h3 class="text-alert font-bold tracking-widest mb-6 border-b border-alert/30 pb-2">>> ATK_SPOOFING</h3>
+                    <ul class="space-y-5">
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Metasploit</span> <span class="text-neon text-xs">70%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[70%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
-                        <li class="flex items-center text-sm text-white group">
-                            <span class="text-muted mr-2 group-hover:text-neon">[-]</span> Bash Scripting
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Airgeddon</span> <span class="text-neon text-xs">60%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[60%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
+                        </li>
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Ettercap</span> <span class="text-neon text-xs">55%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[55%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cyber-border p-6 hover:-translate-y-2 transition-transform duration-300 bg-black/40">
+                    <h3 class="text-alert font-bold tracking-widest mb-6 border-b border-alert/30 pb-2">>> CORE_ENV</h3>
+                    <ul class="space-y-5">
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Linux / Bash</span> <span class="text-neon text-xs">90%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[90%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
+                        </li>
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Python</span> <span class="text-neon text-xs">80%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[80%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
+                        </li>
+                        <li class="text-sm text-white group cursor-crosshair">
+                            <div class="flex justify-between mb-1"><span class="text-muted group-hover:text-white transition-colors">Git / Docker</span> <span class="text-neon text-xs">70%</span></div>
+                            <div class="w-full h-1 bg-[#1a2b22]"><div class="h-full bg-neon w-[70%] shadow-[0_0_5px_#00ff9d] group-hover:shadow-[0_0_10px_#00ff9d] transition-shadow"></div></div>
                         </li>
                     </ul>
                 </div>
