@@ -3,864 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyb3rVigil | Cybersecurity Portfolio & Telemetry Terminal</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Cyb3rVigil | Cybersecurity Portfolio &amp; Telemetry Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom Hacker Font and Effects */
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-
-        body {
-            background-color: #030306;
-            color: #00ff66;
-            font-family: 'Fira Code', monospace;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Ambient Cyan-Green Cyber Glows */
-        .bg-cyber-radial {
-            background: radial-gradient(circle at 50% -20%, rgba(0, 255, 102, 0.08) 0%, rgba(3, 3, 6, 0) 60%);
-        }
-
-        /* CRT Scanline Scan effect - Softened to make fonts crisp and readable */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.4) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.08; /* Optimized to protect text sharpness */
-        }
-
-        /* Subtle Glow classes - Crisp edge definition without blur halos */
-        .glow-text {
-            text-shadow: 0 0 4px rgba(0, 255, 102, 0.5), 0 0 12px rgba(0, 255, 102, 0.2);
-        }
-        .glow-border {
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
-        }
-
-        /* Blinking Terminal Cursor */
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 1.1em;
-            background-color: #00ff66;
-            vertical-align: middle;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030306; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #003311; 
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00ff66; 
-        }
-
-        /* Cyberpunk Grid Background */
-        .cyber-grid {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(0, 255, 102, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 255, 102, 0.02) 1px, transparent 1px);
-        }
-
-        /* High-contrast Card background with solid backdrop to hide matrix movement behind text */
-        .cyber-card {
-            background: rgba(10, 10, 14, 0.96);
-            border: 1px solid rgba(0, 255, 102, 0.25);
-            backdrop-filter: blur(16px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .cyber-card:hover {
-            border-color: rgba(0, 255, 102, 0.6);
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Input highlight */
-        .terminal-input-field:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen relative bg-cyber-radial pb-12 selection:bg-green-900 selection:text-white">
-    <!-- Overlay effects -->
+<body class="min-h-screen relative bg-cyber-radial pb-12 selection:bg-green-500 selection:text-black">
+
+    <!-- ══ BOOT SCREEN ════════════════════════════════════ -->
+    <div id="boot-screen">
+        <pre id="boot-ascii">
+ ██████╗██╗   ██╗██████╗ ██████╗ ██╗   ██╗██╗ ██████╗ ██╗██╗
+██╔════╝╚██╗ ██╔╝██╔══██╗╚════██╗██║   ██║██║██╔════╝ ██║██║
+██║      ╚████╔╝ ██████╔╝ █████╔╝██║   ██║██║██║  ███╗██║██║
+██║       ╚██╔╝  ██╔══██╗ ╚═══██╗╚██╗ ██╔╝██║██║   ██║██║██║
+╚██████╗   ██║   ██████╔╝██████╔╝ ╚████╔╝ ██║╚██████╔╝██║███████╗
+ ╚═════╝   ╚═╝   ╚═════╝ ╚═════╝   ╚═══╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝</pre>
+        <div id="boot-log" class="w-full max-w-xl"></div>
+        <div class="loading-bar-track">
+            <div id="boot-bar-fill" class="loading-bar-fill"></div>
+        </div>
+        <div class="flex justify-between w-full max-w-xl mt-1 text-[10px] font-mono text-gray-600">
+            <span>LOADING TELEMETRY SHELL</span>
+            <span id="boot-percent">0%</span>
+        </div>
+    </div>
+
+    <!-- ══ OVERLAY EFFECTS ════════════════════════════════ -->
     <div class="scanlines"></div>
     <div class="absolute inset-0 cyber-grid pointer-events-none z-0"></div>
-    
-    <!-- Background Canvas Matrix Particles - Softened for superior legibility -->
-    <canvas id="matrixCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-[0.06] z-0"></canvas>
+    <canvas id="matrixCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-[0.08] z-0"></canvas>
 
-    <!-- Top Telemetry Header -->
-    <header class="sticky top-0 z-40 w-full border-b border-green-900/40 bg-[#030306]/95 backdrop-blur-md px-4 sm:px-8 py-3">
+    <!-- ══ HEADER ════════════════════════════════════════ -->
+    <header class="header-scan sticky top-0 z-40 w-full border-b border-green-900/50 bg-[#030306]/80 backdrop-blur-xl px-4 sm:px-8 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <span class="inline-block w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#00ff66]"></span>
+                <span class="ping-dot inline-block w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_12px_#00ff66]"></span>
                 <span class="text-xs text-white font-mono tracking-widest font-semibold uppercase">SYSTEM MONITOR // ONLINE</span>
-                <div class="text-xs bg-green-950/50 border border-green-800 px-2.5 py-0.5 rounded text-green-400 font-bold">
-                    SEC_LEVEL: BEGINNER_ASSET
+                <div class="text-[10px] bg-green-500/10 border border-green-500/30 px-2.5 py-1 rounded text-green-400 font-mono font-bold tracking-wider">
+                    SEC_LEVEL: ACTIVE_TRAINEE
                 </div>
             </div>
-            
-            <nav class="flex flex-wrap justify-center gap-3 sm:gap-6 text-sm font-semibold">
-                <a href="#about" class="text-white hover:text-green-400 font-medium transition-colors py-1">[ 01. WHOAMI ]</a>
-                <a href="#telemetry" class="text-white hover:text-green-400 font-medium transition-colors py-1">[ 02. METRICS ]</a>
-                <a href="#terminal-section" class="text-white hover:text-green-400 font-medium transition-colors py-1">[ 03. CLI_TERM ]</a>
-                <a href="#labs" class="text-white hover:text-green-400 font-medium transition-colors py-1">[ 04. LABS_DB ]</a>
-                <a href="#roadmap" class="text-white hover:text-green-400 font-medium transition-colors py-1">[ 05. ROADMAP ]</a>
+            <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs font-mono font-semibold tracking-widest">
+                <a href="#about"           class="text-gray-400 hover:text-green-400 transition-all duration-300 py-1">[01.WHOAMI]</a>
+                <a href="#telemetry"       class="text-gray-400 hover:text-green-400 transition-all duration-300 py-1">[02.METRICS]</a>
+                <a href="#terminal-section" class="text-gray-400 hover:text-green-400 transition-all duration-300 py-1">[03.CLI_TERM]</a>
+                <a href="#labs"            class="text-gray-400 hover:text-green-400 transition-all duration-300 py-1">[04.LABS_DB]</a>
+                <a href="#roadmap"         class="text-gray-400 hover:text-green-400 transition-all duration-300 py-1">[05.ROADMAP]</a>
             </nav>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-4 sm:px-8 relative z-10 pt-8 sm:pt-16">
 
-        <!-- Welcome Telemetry Alert -->
-        <div class="mb-8 p-3 bg-green-950/30 border border-green-500/40 rounded flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs text-green-400 font-bold">
-            <div>⚡ LOG_IN AT: <span id="login-time" class="text-white">Loading...</span> FROM HOST: IP_RESOLVED_FOREIGN</div>
-            <div>STATUS: LEARNING AI & PENETRATION TESTING SEC-BASICS</div>
+        <!-- ══ TELEMETRY ALERT BAR ════════════════════════ -->
+        <div class="mb-10 p-3 bg-green-500/5 border border-green-500/20 backdrop-blur-sm rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[11px] font-mono font-medium text-gray-300 shadow-lg reveal">
+            <div class="flex items-center gap-2">
+                <span class="text-green-400">⚡</span>
+                <span>SESSION STARTED: <span id="login-time" class="text-white font-bold">Resolving...</span></span>
+            </div>
+            <div class="text-green-400 border border-green-500/20 bg-green-500/10 px-2 py-0.5 rounded">
+                STATUS: LEARNING AI &amp; PEN-TESTING
+            </div>
         </div>
 
-        <!-- HERO SECTION: Split telemetry view -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16 items-stretch">
-            <!-- Left Banner: Hero intro -->
-            <div class="lg:col-span-7 flex flex-col justify-between bg-black/60 border border-green-900/50 p-6 sm:p-8 rounded-lg relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-2xl"></div>
-                <div>
-                    <div class="inline-block px-3 py-1 text-xs font-bold bg-green-950/60 border border-green-600 rounded mb-4 text-green-300">
-                        ASPIRING ETHICAL HACKER / CS STUDENT
+        <!-- ══ HERO SECTION ══════════════════════════════ -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 items-stretch reveal">
+
+            <!-- Hero Left -->
+            <div class="lg:col-span-7 flex flex-col justify-between cyber-card neon-pulse p-8 sm:p-10 rounded-2xl relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono font-bold bg-green-500/10 border border-green-500/30 rounded-full mb-6 text-green-400 uppercase tracking-widest">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
+                        Aspiring Ethical Hacker / CS Student
                     </div>
-                    <p class="text-white text-xs mb-1 font-mono font-bold tracking-wider">SYSTEM_IDENTIFICATION:</p>
-                    <h2 class="text-2xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-                        I am <span class="text-green-400 glow-text font-extrabold">Cyb3rVigil</span>
+                    <p class="text-gray-400 text-xs mb-2 font-mono font-medium tracking-wider">SYSTEM_IDENTIFICATION:</p>
+                    <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
+                        I am
+                        <span class="glitch-container text-gradient drop-shadow-lg" data-text="Cyb3rVigil">Cyb3rVigil</span>
                     </h2>
-                    
-                    <div class="text-sm sm:text-lg text-white font-semibold leading-relaxed min-h-[70px] mb-6">
+                    <div class="text-base sm:text-lg text-gray-300 font-medium leading-relaxed min-h-[80px] mb-8 font-mono">
                         <span id="typewriter" class="text-green-300"></span><span class="cursor"></span>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-4 mt-4">
-                    <a href="#terminal-section" class="bg-green-500/20 hover:bg-green-500/35 border-2 border-green-400 text-green-300 font-bold px-4 py-2.5 rounded text-xs tracking-wider transition-all duration-300 flex items-center gap-2 shadow-[0_0_15px_rgba(0,255,102,0.15)] hover:shadow-[0_0_20px_rgba(0,255,102,0.35)]">
-                        <span>> RUN TERMINAL SHELL</span>
-                        <span class="text-xs bg-green-900 px-1.5 py-0.5 rounded text-white font-mono font-bold">CLI</span>
+                <div class="flex flex-wrap gap-4 mt-auto relative z-10 font-mono">
+                    <!-- FIX: shimmer animation now works with the keyframe in style.css -->
+                    <a href="#terminal-section" class="group relative px-6 py-3 bg-green-500/10 hover:bg-green-500/20 border border-green-500/50 text-green-400 font-bold rounded-lg text-xs tracking-widest uppercase transition-all duration-300 overflow-hidden shadow-[0_0_20px_rgba(0,255,102,0.1)] hover:shadow-[0_0_30px_rgba(0,255,102,0.3)]">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-green-400/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                        <span class="flex items-center gap-2 relative z-10">
+                            &gt; RUN_TERMINAL
+                            <span class="bg-green-500 text-black px-1.5 py-0.5 rounded text-[10px]">CLI</span>
+                        </span>
                     </a>
-                    <a href="#labs" class="bg-black/50 hover:bg-white/5 border border-gray-500 hover:border-gray-400 text-white font-bold px-4 py-2.5 rounded text-xs tracking-wider transition-all duration-300">
-                        [ VIEW PRACTICAL LABS ]
+                    <a href="#labs" class="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold rounded-lg text-xs tracking-widest uppercase transition-all duration-300">
+                        [ VIEW_LABS ]
                     </a>
                 </div>
             </div>
 
-            <!-- Right Banner: Real live metrics summary -->
-            <div class="lg:col-span-5 flex flex-col justify-between bg-black/80 border border-green-900/50 p-6 rounded-lg relative shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+            <!-- Hero Right — Telemetry Feed -->
+            <div class="lg:col-span-5 flex flex-col justify-between cyber-card p-8 rounded-2xl relative">
                 <div>
-                    <div class="flex justify-between items-center mb-4 border-b border-green-900/40 pb-2">
-                        <span class="text-xs text-white font-bold uppercase tracking-wider">> TELEMETRY_FEED</span>
-                        <span class="text-xs font-bold text-green-400">LIVE: STATUS_OK</span>
+                    <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-3 font-mono">
+                        <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">&gt; TELEMETRY_FEED</span>
+                        <span class="text-[10px] font-bold text-green-400 bg-green-500/10 px-2 py-1 rounded">LIVE: STATUS_OK</span>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-2 mb-6 text-center">
-                        <div class="bg-green-950/40 border border-green-900/60 p-3 rounded">
-                            <div class="text-white text-base sm:text-2xl font-extrabold">Top 15%</div>
-                            <div class="text-[9px] text-white font-bold mt-1 uppercase tracking-wider">THM Rank</div>
+                    <!-- BUG FIX: added data-count + data-suffix for animated counter on reveal -->
+                    <div class="grid grid-cols-3 gap-3 mb-6 text-center font-mono">
+                        <div class="bg-black/40 border border-white/5 p-4 rounded-xl hover:border-green-500/30 transition-colors">
+                            <div class="text-white text-xl sm:text-3xl font-extrabold text-gradient stat-val" data-count="15" data-suffix="%">15%</div>
+                            <div class="text-[9px] text-gray-400 font-bold mt-2 uppercase tracking-widest">THM Rank</div>
                         </div>
-                        <div class="bg-green-950/40 border border-green-900/60 p-3 rounded">
-                            <div class="text-white text-base sm:text-2xl font-extrabold">53</div>
-                            <div class="text-[9px] text-white font-bold mt-1 uppercase tracking-wider">Rooms Solved</div>
+                        <div class="bg-black/40 border border-white/5 p-4 rounded-xl hover:border-green-500/30 transition-colors">
+                            <div class="text-white text-xl sm:text-3xl font-extrabold text-gradient stat-val" data-count="53" data-suffix="">53</div>
+                            <div class="text-[9px] text-gray-400 font-bold mt-2 uppercase tracking-widest">Rooms Solved</div>
                         </div>
-                        <div class="bg-green-950/40 border border-green-900/60 p-3 rounded">
-                            <div class="text-white text-base sm:text-2xl font-extrabold">07</div>
-                            <div class="text-[9px] text-white font-bold mt-1 uppercase tracking-wider">THM Badges</div>
+                        <div class="bg-black/40 border border-white/5 p-4 rounded-xl hover:border-green-500/30 transition-colors">
+                            <div class="text-white text-xl sm:text-3xl font-extrabold text-gradient stat-val" data-count="7" data-suffix="">07</div>
+                            <div class="text-[9px] text-gray-400 font-bold mt-2 uppercase tracking-widest">THM Badges</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 text-xs text-white font-bold">
-                        <div class="flex justify-between border-b border-green-950/50 pb-1.5">
-                            <span class="text-gray-200">CURRENT STUDY PATH</span>
+                    <!-- Live Packet Feed — new feature -->
+                    <div class="bg-black/50 border border-white/5 rounded-xl p-3 mb-5">
+                        <div class="text-[9px] text-gray-500 font-mono font-bold uppercase tracking-widest mb-2 flex justify-between">
+                            <span>&gt; LIVE PACKET CAPTURE</span>
+                            <span class="text-green-400 animate-pulse">● RX</span>
+                        </div>
+                        <div id="packet-feed" class="space-y-0 min-h-[60px]"></div>
+                    </div>
+
+                    <div class="space-y-3 text-xs font-mono font-medium">
+                        <div class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-400">STUDY_PATH</span>
                             <span class="text-yellow-400">[ AI FUNDAMENTALS ]</span>
                         </div>
-                        <div class="flex justify-between border-b border-green-950/50 pb-1.5">
-                            <span class="text-gray-200">CERTIFICATIONS</span>
+                        <div class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-400">CERTIFICATIONS</span>
                             <span class="text-green-400">[ 02 VERIFIED ]</span>
                         </div>
-                        <div class="flex justify-between border-b border-green-950/50 pb-1.5">
-                            <span class="text-gray-200">PRACTICAL LAB PROJECTS</span>
-                            <span class="text-green-400">[ 07 ACTIVE MODULES ]</span>
+                        <div class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-400">PRACTICAL_LABS</span>
+                            <span class="text-green-400">[ 08 MODULES ]</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-200">MISSION STATS</span>
-                            <span class="text-gray-100">[ ACTIVE STUDYING: 1 HR/DAILY ]</span>
+                            <span class="text-gray-400">MISSION_STATS</span>
+                            <span class="text-gray-200">[ ACTIVE: 1 HR/DAILY ]</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-green-900/40 flex justify-between items-center text-[10px] text-gray-400 font-semibold">
-                    <span>HOST_RESOLVER: UP</span>
+                <div class="mt-6 pt-4 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                    <span>HOST: UP</span>
+                    <span>KERNEL: 6.6.9-amd64</span>
                     <span>MD5: fb70d6a2f...</span>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 1: ABOUT & PROFESSIONAL BIO -->
-        <section id="about" class="mb-16 scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[01]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Professional Persona <span class="text-green-300 font-semibold font-mono">&lt;whoami&gt;</span>
+        <!-- ══ [01] ABOUT ════════════════════════════════ -->
+        <section id="about" class="mb-20 scroll-mt-24 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[01]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Professional Persona <span class="text-green-400/80 font-medium text-lg ml-2">&lt;whoami&gt;</span>
                 </h3>
             </div>
-            
-            <div class="cyber-card p-6 sm:p-8 rounded-lg relative overflow-hidden shadow-lg">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                    <div class="md:col-span-8 space-y-4 text-sm sm:text-base text-gray-100 font-medium leading-relaxed">
+            <div class="cyber-card p-8 sm:p-10 rounded-2xl relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+                    <div class="md:col-span-8 space-y-6 text-[15px] text-gray-300 leading-relaxed font-light">
                         <p>
-                            Hello, I'm <strong class="text-green-400 font-bold">Cyb3rVigil</strong>. I am a Computer Science Engineering student focused deeply on exploring security architectures, systems deployment, and defensive automation. My journey in technology is rooted in intense curiosity about how networking elements, virtual systems, and security boundaries fit together under the hood.
+                            Hello, I'm <strong class="text-white font-semibold">Cyb3rVigil</strong>. I am a Computer Science Engineering student focused deeply on exploring security architectures, systems deployment, and defensive automation. My journey in technology is rooted in intense curiosity about how networking elements, virtual systems, and security boundaries fit together under the hood.
                         </p>
                         <p>
-                            Unlike a "movie hacker" focused on simulated metrics, my path is strictly dedicated to practical fundamentals. I'm actively using lab virtualizations, structured academic networks, and platforms like <strong class="text-green-300 font-bold">TryHackMe</strong> to hone operational skills in packet inspection, server configuration, network auditing, and secure service hosting.
+                            Unlike a "movie hacker" focused on simulated metrics, my path is strictly dedicated to practical fundamentals. I'm actively using lab virtualizations, structured academic networks, and platforms like <strong class="text-green-400 font-mono font-medium">TryHackMe</strong> to hone operational skills in packet inspection, server configuration, network auditing, and secure service hosting.
                         </p>
-                        <p class="text-xs text-white font-mono font-bold bg-green-950/20 p-2 border border-green-900/40 rounded mt-2">
-                            > Active training regimen: 1 hour of daily rigorous target-oriented practice, exploring both machine learning fundamentals and modern penetration testing.
-                        </p>
+                        <div class="font-mono text-xs text-green-300 bg-green-500/5 p-4 border border-green-500/20 rounded-xl mt-4 flex gap-3 items-start">
+                            <span class="text-green-500 mt-0.5">❯</span>
+                            <p class="leading-relaxed">Active training regimen: 1 hour of daily rigorous target-oriented practice, exploring both machine learning fundamentals and modern penetration testing.</p>
+                        </div>
                     </div>
-
-                    <div class="md:col-span-4 bg-green-950/20 border border-green-900/50 p-4 rounded-md space-y-4">
-                        <h4 class="text-xs text-green-400 font-extrabold tracking-widest uppercase border-b border-green-900/40 pb-1.5">
-                            PROFILE PARAMETERS
-                        </h4>
-                        <div class="space-y-2.5 text-xs text-white font-bold">
-                            <div><span class="text-green-400 font-extrabold">ROLE:</span> CS Student & Aspiring Ethical Hacker</div>
-                            <div><span class="text-green-400 font-extrabold">PRACTICE PATH:</span> Red Team Basics / AI-Sec Integration</div>
-                            <div><span class="text-green-400 font-extrabold">PRIMARY SYSTEM:</span> Kali Linux / Debian System Environments</div>
-                            <div><span class="text-green-400 font-extrabold">STUDY FOCUS:</span> Virtualization Security, Host Recon, SQLi/XSS</div>
+                    <div class="md:col-span-4 bg-black/40 border border-white/5 p-6 rounded-xl space-y-5">
+                        <h4 class="text-xs text-gray-400 font-mono font-bold tracking-widest uppercase border-b border-white/10 pb-2">PROFILE_PARAMETERS</h4>
+                        <div class="space-y-4 text-xs font-mono text-gray-200">
+                            <div><span class="text-green-400 block mb-1 font-bold">ROLE:</span> CS Student &amp; Aspiring Ethical Hacker</div>
+                            <div><span class="text-green-400 block mb-1 font-bold">PRACTICE PATH:</span> Red Team Basics / AI-Sec Integration</div>
+                            <div><span class="text-green-400 block mb-1 font-bold">PRIMARY SYSTEM:</span> Kali Linux / Debian Environments</div>
+                            <div><span class="text-green-400 block mb-1 font-bold">STUDY FOCUS:</span> Virtualization, Host Recon, SQLi/XSS</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: TELEMETRY & VERIFIED METRICS -->
-        <section id="telemetry" class="mb-16 scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[02]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Telemetry & Verified Credentials
+        <!-- ══ [02] TELEMETRY & CREDENTIALS ═════════════ -->
+        <section id="telemetry" class="mb-20 scroll-mt-24 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[02]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Telemetry &amp; Verified Credentials
                 </h3>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Cybersecurity Certification -->
-                <div class="cyber-card p-6 rounded-lg flex flex-col justify-between shadow-lg">
+
+                <!-- Cert 1 -->
+                <div class="cyber-card p-8 rounded-2xl flex flex-col justify-between group">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
+                        <div class="flex justify-between items-start mb-5">
                             <div>
-                                <span class="text-[10px] text-white font-mono font-bold">CREDENTIAL_ID: TD-ABHI-CS-1135</span>
-                                <h4 class="text-base sm:text-lg font-bold text-white mt-1">Cybersecurity Certification</h4>
+                                <span class="text-[10px] text-gray-400 font-mono tracking-wider">ID: TD-ABHI-CS-1135</span>
+                                <h4 class="text-lg font-bold text-white mt-1 font-mono">Cybersecurity Baseline</h4>
                             </div>
-                            <span class="text-xs bg-green-950 text-green-400 border border-green-800 px-2 py-0.5 rounded font-mono font-extrabold">TUTEDUDE</span>
+                            <span class="text-[10px] bg-green-500/10 text-green-400 border border-green-500/20 px-2.5 py-1 rounded-md font-mono font-bold">TUTEDUDE</span>
                         </div>
-                        <p class="text-xs text-gray-100 font-medium mb-4 leading-relaxed">
+                        <p class="text-[13px] text-gray-300 font-light mb-6 leading-relaxed">
                             Completed exhaustive baseline verification modules focusing on systems vulnerabilities identification, physical/logical access controls, threat models, and fundamental data security configurations.
                         </p>
                     </div>
-                    <a href="https://upskill.tutedude.com/certificate/TD-ABHI-CS-1135" target="_blank" class="w-full text-center bg-green-500/20 hover:bg-green-500/30 border-2 border-green-500 hover:border-green-400 text-green-300 font-bold py-2 rounded text-xs transition-all duration-300">
-                        [ VERIFY CERTIFICATION REPO ]
+                    <a href="https://upskill.tutedude.com/certificate/TD-ABHI-CS-1135" target="_blank"
+                       class="w-full text-center bg-white/5 hover:bg-green-500/20 border border-white/10 hover:border-green-500/50 text-white hover:text-green-400 font-mono font-semibold py-3 rounded-xl text-xs transition-all duration-300">
+                        VERIFY_CREDENTIAL
                     </a>
                 </div>
 
-                <!-- Ethical Hacking Certification -->
-                <div class="cyber-card p-6 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- Cert 2 -->
+                <div class="cyber-card p-8 rounded-2xl flex flex-col justify-between group">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
+                        <div class="flex justify-between items-start mb-5">
                             <div>
-                                <span class="text-[10px] text-white font-mono font-bold">CREDENTIAL_ID: TD-ABHI-EH-1205</span>
-                                <h4 class="text-base sm:text-lg font-bold text-white mt-1">Ethical Hacking Certification</h4>
+                                <span class="text-[10px] text-gray-400 font-mono tracking-wider">ID: TD-ABHI-EH-1205</span>
+                                <h4 class="text-lg font-bold text-white mt-1 font-mono">Ethical Hacking Ops</h4>
                             </div>
-                            <span class="text-xs bg-green-950 text-green-400 border border-green-800 px-2 py-0.5 rounded font-mono font-extrabold">TUTEDUDE</span>
+                            <span class="text-[10px] bg-green-500/10 text-green-400 border border-green-500/20 px-2.5 py-1 rounded-md font-mono font-bold">TUTEDUDE</span>
                         </div>
-                        <p class="text-xs text-gray-100 font-medium mb-4 leading-relaxed">
-                            Acquired structured training covering network scanning protocols, basic exploitation mechanics (Metasploit), active network packet sniffing configurations, wireless sniffing setups, and MITM execution models.
+                        <p class="text-[13px] text-gray-300 font-light mb-6 leading-relaxed">
+                            Acquired structured training covering network scanning protocols, basic exploitation mechanics (Metasploit), active packet sniffing, wireless sniffing setups, and MITM execution models.
                         </p>
                     </div>
-                    <a href="https://upskill.tutedude.com/certificate/TD-ABHI-EH-1205" target="_blank" class="w-full text-center bg-green-500/20 hover:bg-green-500/30 border-2 border-green-500 hover:border-green-400 text-green-300 font-bold py-2 rounded text-xs transition-all duration-300">
-                        [ VERIFY CERTIFICATION REPO ]
+                    <a href="https://upskill.tutedude.com/certificate/TD-ABHI-EH-1205" target="_blank"
+                       class="w-full text-center bg-white/5 hover:bg-green-500/20 border border-white/10 hover:border-green-500/50 text-white hover:text-green-400 font-mono font-semibold py-3 rounded-xl text-xs transition-all duration-300">
+                        VERIFY_CREDENTIAL
                     </a>
                 </div>
 
-                <!-- Skill Grid Breakdown -->
-                <div class="md:col-span-2 cyber-card p-6 rounded-lg shadow-lg">
-                    <h4 class="text-sm font-bold tracking-widest text-white mb-4 uppercase border-b border-green-900/30 pb-2">
-                        SKILLS PROFILES (NO FAKE PERCENTAGES // HONEST STATUS LABELS)
+                <!-- Skills Grid — full width -->
+                <div class="md:col-span-2 cyber-card p-8 rounded-2xl mt-2">
+                    <h4 class="text-xs font-mono font-bold tracking-widest text-gray-400 mb-6 uppercase border-b border-white/5 pb-3">
+                        SKILLS_PROFILES <span class="text-green-500/50 lowercase ml-2 font-normal">(honest tags — no fake percentages)</span>
                     </h4>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Group 1 -->
-                        <div class="bg-black/60 border border-green-900/50 p-3 rounded">
-                            <span class="text-xs font-bold text-green-400 block mb-2">> Network Recon</span>
-                            <div class="space-y-1.5 text-xs text-white font-bold">
-                                <div class="flex justify-between"><span>Nmap / Zenmap</span><span class="text-green-400">[ Active Lab ]</span></div>
-                                <div class="flex justify-between"><span>Host Discovery</span><span class="text-green-400">[ Hands-On ]</span></div>
-                                <div class="flex justify-between"><span>Port Auditing</span><span class="text-green-400">[ Hands-On ]</span></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-xl hover:bg-black/50 transition-colors">
+                            <span class="text-[11px] font-bold text-green-400 block mb-3 uppercase tracking-wider">&gt; Recon</span>
+                            <div class="space-y-2.5 text-xs text-gray-300 font-medium">
+                                <div class="flex justify-between gap-2"><span>Nmap/Zenmap</span><span class="text-green-500">[Active]</span></div>
+                                <div class="flex justify-between gap-2"><span>Host Discovery</span><span class="text-green-500">[Hands-On]</span></div>
+                                <div class="flex justify-between gap-2"><span>Port Auditing</span><span class="text-green-500">[Hands-On]</span></div>
                             </div>
                         </div>
-                        <!-- Group 2 -->
-                        <div class="bg-black/60 border border-green-900/50 p-3 rounded">
-                            <span class="text-xs font-bold text-green-400 block mb-2">> Attack Simulation</span>
-                            <div class="space-y-1.5 text-xs text-white font-bold">
-                                <div class="flex justify-between"><span>MITM Ettercap</span><span class="text-green-400">[ Controlled ]</span></div>
-                                <div class="flex justify-between"><span>ARP Poisoning</span><span class="text-green-400">[ Controlled ]</span></div>
-                                <div class="flex justify-between"><span>Metasploit Exploits</span><span class="text-yellow-400">[ Learning ]</span></div>
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-xl hover:bg-black/50 transition-colors">
+                            <span class="text-[11px] font-bold text-green-400 block mb-3 uppercase tracking-wider">&gt; Simulation</span>
+                            <div class="space-y-2.5 text-xs text-gray-300 font-medium">
+                                <div class="flex justify-between gap-2"><span>Ettercap</span><span class="text-green-500">[Controlled]</span></div>
+                                <div class="flex justify-between gap-2"><span>ARP Poisoning</span><span class="text-green-500">[Controlled]</span></div>
+                                <div class="flex justify-between gap-2"><span>Metasploit</span><span class="text-yellow-500">[Learning]</span></div>
                             </div>
                         </div>
-                        <!-- Group 3 -->
-                        <div class="bg-black/60 border border-green-900/50 p-3 rounded">
-                            <span class="text-xs font-bold text-green-400 block mb-2">> Web Security</span>
-                            <div class="space-y-1.5 text-xs text-white font-bold">
-                                <div class="flex justify-between"><span>SQL Injection</span><span class="text-green-400">[ Practice ]</span></div>
-                                <div class="flex justify-between"><span>Reflected XSS</span><span class="text-green-400">[ Practice ]</span></div>
-                                <div class="flex justify-between"><span>PortSwigger Academy</span><span class="text-yellow-400">[ Progress ]</span></div>
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-xl hover:bg-black/50 transition-colors">
+                            <span class="text-[11px] font-bold text-green-400 block mb-3 uppercase tracking-wider">&gt; Web Sec</span>
+                            <div class="space-y-2.5 text-xs text-gray-300 font-medium">
+                                <div class="flex justify-between gap-2"><span>SQL Injection</span><span class="text-green-500">[Practice]</span></div>
+                                <div class="flex justify-between gap-2"><span>Reflected XSS</span><span class="text-green-500">[Practice]</span></div>
+                                <div class="flex justify-between gap-2"><span>PortSwigger</span><span class="text-yellow-500">[Progress]</span></div>
                             </div>
                         </div>
-                        <!-- Group 4 -->
-                        <div class="bg-black/60 border border-green-900/50 p-3 rounded">
-                            <span class="text-xs font-bold text-green-400 block mb-2">> Environments & AI</span>
-                            <div class="space-y-1.5 text-xs text-white font-bold">
-                                <div class="flex justify-between"><span>Kali Linux OS</span><span class="text-green-400">[ Primary ]</span></div>
-                                <div class="flex justify-between"><span>Python / Bash / C</span><span class="text-green-400">[ Scripting ]</span></div>
-                                <div class="flex justify-between"><span>AI Fundamentals</span><span class="text-yellow-400">[ Current ]</span></div>
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-xl hover:bg-black/50 transition-colors">
+                            <span class="text-[11px] font-bold text-green-400 block mb-3 uppercase tracking-wider">&gt; Env / AI</span>
+                            <div class="space-y-2.5 text-xs text-gray-300 font-medium">
+                                <div class="flex justify-between gap-2"><span>Kali Linux</span><span class="text-green-500">[Primary]</span></div>
+                                <div class="flex justify-between gap-2"><span>Py/Bash/C</span><span class="text-green-500">[Scripting]</span></div>
+                                <div class="flex justify-between gap-2"><span>AI Concepts</span><span class="text-yellow-500">[Current]</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- SECTION 3: INTERACTIVE TERMINAL EMULATOR -->
-        <section id="terminal-section" class="mb-16 scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[03]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Cyb3rVigil Interactive CLI Terminal
+        <!-- ══ [03] INTERACTIVE CLI TERMINAL ════════════ -->
+        <section id="terminal-section" class="mb-20 scroll-mt-24 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[03]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Interactive CLI Terminal
                 </h3>
             </div>
 
-            <!-- Terminal UI Box -->
-            <div class="bg-black border-2 border-green-900 rounded-lg overflow-hidden flex flex-col h-[450px] shadow-[0_0_30px_rgba(0,255,102,0.15)]">
-                <!-- Top titlebar -->
-                <div class="bg-neutral-900 border-b border-green-900 px-4 py-2 flex items-center justify-between">
+            <div class="bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden flex flex-col h-[520px] shadow-2xl relative">
+                <!-- Title bar -->
+                <div class="bg-[#141414] border-b border-white/5 px-4 py-3 flex items-center justify-between shrink-0">
                     <div class="flex items-center gap-2">
-                        <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block"></span>
-                        <span class="w-3.5 h-3.5 rounded-full bg-yellow-500 inline-block"></span>
-                        <span class="w-3.5 h-3.5 rounded-full bg-green-500 inline-block"></span>
-                        <span class="text-xs text-white ml-2 font-mono font-bold">cyb3rvigil@kali: /terminal-shell</span>
+                        <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                        <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                        <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
                     </div>
-                    <span class="text-[10px] text-green-400 font-mono font-bold">bash v5.2</span>
+                    <span class="text-[11px] text-gray-400 font-mono absolute left-1/2 -translate-x-1/2">cyb3rvigil@kali:~ — bash</span>
+                    <span class="text-[10px] text-green-500 font-mono animate-pulse">● SECURE</span>
                 </div>
 
-                <!-- Output Area -->
-                <div id="terminal-body" class="p-4 flex-1 overflow-y-auto text-xs sm:text-sm text-green-300 font-mono space-y-2">
-                    <div>Welcome to the interactive portfolio terminal. Enter a command or click one of the quick commands below to explore.</div>
-                    <div>Type <span class="text-white font-bold">help</span> to view all available telemetry instructions.</div>
+                <!-- Output area -->
+                <div id="terminal-body" class="p-5 flex-1 overflow-y-auto text-sm text-gray-300 font-mono space-y-1">
+                    <div class="text-green-400 font-bold">Welcome to the Cyb3rVigil portfolio shell v3.1</div>
+                    <div class="text-gray-500 text-xs">Type <span class="text-white bg-white/10 px-1 rounded">help</span> to view commands &nbsp;|&nbsp; <span class="text-white bg-white/10 px-1 rounded">↑↓</span> history &nbsp;|&nbsp; <span class="text-white bg-white/10 px-1 rounded">Tab</span> autocomplete</div>
                     <br>
                 </div>
 
-                <!-- Quick Command Panel (For UX / Mobile Friendly) -->
-                <div class="bg-neutral-950 border-t border-green-900 px-3 py-2 flex flex-wrap gap-2 items-center">
-                    <span class="text-[10px] text-gray-300 uppercase font-bold mr-1">QUICK COMMANDS:</span>
-                    <button onclick="executeTerminalCommand('whoami')" class="text-[10px] bg-green-950/60 hover:bg-green-900/80 border-2 border-green-700 text-green-200 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">whoami</button>
-                    <button onclick="executeTerminalCommand('skills')" class="text-[10px] bg-green-950/60 hover:bg-green-900/80 border-2 border-green-700 text-green-200 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">skills</button>
-                    <button onclick="executeTerminalCommand('labs')" class="text-[10px] bg-green-950/60 hover:bg-green-900/80 border-2 border-green-700 text-green-200 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">labs</button>
-                    <button onclick="executeTerminalCommand('thm')" class="text-[10px] bg-green-950/60 hover:bg-green-900/80 border-2 border-green-700 text-green-200 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">thm</button>
-                    <button onclick="executeTerminalCommand('certs')" class="text-[10px] bg-green-950/60 hover:bg-green-900/80 border-2 border-green-700 text-green-200 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">certs</button>
-                    <button onclick="executeTerminalCommand('clear')" class="text-[10px] bg-red-950/40 hover:bg-red-900/60 border-2 border-red-800 text-red-300 px-2.5 py-1 rounded transition-colors font-mono font-extrabold">clear</button>
+                <!-- Input line -->
+                <div class="bg-[#0f0f0f] px-5 py-4 flex items-center gap-3 shrink-0 border-t border-white/5">
+                    <span class="text-green-500 font-bold font-mono text-sm shrink-0">
+                        cyb3rvigil<span class="text-gray-600">@</span><span class="text-cyan-500">kali</span><span class="text-gray-500">:~$</span>
+                    </span>
+                    <input type="text" id="terminal-input"
+                           class="terminal-input-field flex-1 bg-transparent text-white font-mono text-sm caret-green-500"
+                           placeholder="Type a command..."
+                           autocomplete="off" spellcheck="false">
                 </div>
 
-                <!-- Input Prompt line -->
-                <div class="bg-black border-t border-green-900 px-4 py-3 flex items-center gap-2">
-                    <span class="text-green-400 font-bold font-mono">cyb3rvigil@kali:~$</span>
-                    <input type="text" id="terminal-input" class="terminal-input-field flex-1 bg-transparent text-white font-mono text-sm focus:outline-none" placeholder="Enter cyber execution queries here..." autocomplete="off">
+                <!-- FIX: added 'socials' quick button (was missing) -->
+                <div class="bg-[#060606] border-t border-white/5 px-4 py-2.5 flex flex-wrap gap-2 items-center font-mono shrink-0">
+                    <span class="text-[9px] text-gray-600 uppercase tracking-widest mr-1">QUICK:</span>
+                    <button onclick="executeTerminalCommand('whoami')"  class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">whoami</button>
+                    <button onclick="executeTerminalCommand('skills')"  class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">skills</button>
+                    <button onclick="executeTerminalCommand('labs')"    class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">labs</button>
+                    <button onclick="executeTerminalCommand('thm')"     class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">thm</button>
+                    <button onclick="executeTerminalCommand('certs')"   class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">certs</button>
+                    <button onclick="executeTerminalCommand('socials')" class="text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">socials</button>
+                    <button onclick="executeTerminalCommand('scan')"    class="text-[10px] bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-400 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">scan</button>
+                    <button onclick="executeTerminalCommand('clear')"   class="text-[10px] bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 px-3 py-1.5 rounded uppercase tracking-wider transition-colors ml-auto">clear</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 4: LABS ENGINE AND PRACTICAL EVIDENCE -->
-        <section id="labs" class="mb-16 scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[04]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Coursework Assignments & PortSwigger Labs DB
+        <!-- ══ [04] LABS DATABASE ════════════════════════ -->
+        <section id="labs" class="mb-20 scroll-mt-24 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[04]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Practical Lab Database
                 </h3>
             </div>
-
-            <p class="text-xs text-white mb-6 font-bold leading-relaxed bg-green-950/30 border border-green-900/40 p-3 rounded">
-                🔍 Verified Academic Output Log: Below are the actual laboratory modules I successfully executed as part of my B.Tech engineering curriculum and personal security research. Each highlights critical diagnostic and defense methodologies.
+            <p class="text-sm text-gray-300 mb-8 font-light leading-relaxed border-l-2 border-green-500 pl-4 py-1">
+                Verified Academic Output Log: The following modules represent hands-on execution of diagnostic, reconnaissance, and offensive simulation methodologies.
             </p>
 
+            <!-- BUG FIX: All lab modules now have unique, sequential IDs -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Lab Block 1 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+
+                <!-- MOD_01 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">RECON / DISCOVERY</span>
-                            <span class="text-xs text-white font-mono font-extrabold">MODULE_1-4</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Recon</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_01</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">Systems Deployment & Virtual Environment</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Provisioned running test systems under Oracle VirtualBox virtualization. Configured fresh, secure local interfaces, executed complete system repository upgrades, and managed directory control processes.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Virtual Env Deployment</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Provisioned test systems under Oracle VirtualBox. Configured secure local interfaces, executed upgrades, and managed directory controls under Kali Linux.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">VirtualBox</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Kali Linux</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Admin Shell</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">VirtualBox</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Kali Linux</span>
                     </div>
                 </div>
 
-                <!-- Lab Block 2 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- MOD_02 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">UTILITIES</span>
-                            <span class="text-xs text-white font-mono font-extrabold">MODULE_4</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Recon</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_02</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">Essential Command-Line Operation</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Executed fundamental diagnostic operations over core Kali processes. Investigated file trees using `find`, parsed systems status lists with `ps`, traced path routings using `traceroute`, and verified host accessibility with `ping`.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Network Discovery Audits</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Executed host discovery sweeps using Nmap and Zenmap, performed port classification, version detection, and OS fingerprinting on lab targets.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Diagnostics</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Process Logs</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Ping / Traceroute</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Nmap</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Zenmap</span>
                     </div>
                 </div>
 
-                <!-- Lab Block 3 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- MOD_03 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">WIRELESS AUDITING</span>
-                            <span class="text-xs text-white font-mono font-extrabold">MODULE_5-6</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Forensics</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_03</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">Wi-Fi Protection Analysis</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Installed and explored Airgeddon in a controlled laboratory target space. Analyzed handshake protocol capture interfaces and examined cracking methodology pipelines to identify defensive configuration weaknesses in wireless routers.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Wireshark Protocol Diagnostics</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Captured live traffic, applied display filters, dissected TCP streams, and analyzed protocol handshakes (TLS, HTTP, DNS) in controlled lab environments.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Airgeddon</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Wireless Auditing</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">WPA Handshake</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Wireshark</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">pcap</span>
                     </div>
                 </div>
 
-                <!-- Lab Block 4 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- MOD_04 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">TRAFFIC ANALYSIS</span>
-                            <span class="text-xs text-white font-mono font-extrabold">MODULE_6</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Cmd_Line</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_04</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">Nmap Discovery & Packet Inspection</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Employed Nmap and Zenmap tools to sweep target networks. Captured active packets via Wireshark and configured specific protocol filter scripts to verify HTTP parameter transfers.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Diagnostic Ops</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Investigated file trees using <code class="text-green-400">find</code>, parsed process lists with <code class="text-green-400">ps</code>, traced routing with <code class="text-green-400">traceroute</code>, and verified host accessibility.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Nmap / Zenmap</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Wireshark</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">HTTP Filtering</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Process Logs</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Diagnostics</span>
                     </div>
                 </div>
 
-                <!-- Lab Block 5 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- MOD_05 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">EXPLOIT SIMULATION</span>
-                            <span class="text-xs text-white font-mono font-extrabold">MODULE_6</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Wireless</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_05</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">MITM Attacks & Ettercap ARP Poisoning</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Employed Ettercap on a Kali attacker host targeting a Windows VM. Initiated active ARP poisoning sniffing on controlled network gateways, confirming intercept vulnerabilities of unencrypted traffic.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Wi-Fi Protection Analysis</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Explored Airgeddon in a lab space. Analyzed handshake protocol captures and cracking pipelines to identify defensive weaknesses in WPA2 configurations.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Ettercap</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">ARP Spoofing</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">MITM Intercept</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Airgeddon</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">WPA Handshake</span>
                     </div>
                 </div>
 
-                <!-- Lab Block 6 -->
-                <div class="cyber-card p-5 rounded-lg flex flex-col justify-between shadow-lg">
+                <!-- MOD_06 — BUG FIX: was duplicate MOD_06, now correctly MOD_06 (Packet Inspection) -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
                     <div>
-                        <div class="flex justify-between items-center mb-2.5">
-                            <span class="text-[10px] bg-green-950 text-green-300 px-2 py-0.5 rounded border border-green-800 font-mono font-bold">WEB_SEC</span>
-                            <span class="text-xs text-white font-mono font-extrabold">PORTSWIGGER LABS</span>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Traffic</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_06</span>
                         </div>
-                        <h4 class="text-base font-bold text-white mb-2">Web Vulnerabilities: SQLi & XSS</h4>
-                        <p class="text-xs text-gray-100 font-medium leading-relaxed mb-4">
-                            Solved PortSwigger academy targets. Executed SQL injection payloads to query database engines for hidden entries. Demonstrated XSS mechanics by injecting persistent dynamic scripts into clean target views.
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">Packet Inspection</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Employed Nmap/Zenmap to sweep networks. Captured active packets via Wireshark and configured protocol filter scripts for targeted analysis.
                         </p>
                     </div>
-                    <div class="border-t border-green-950 pt-3 flex flex-wrap gap-1.5 text-[10px] text-white font-bold">
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">PortSwigger Labs</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">SQL Injection</span>
-                        <span class="bg-neutral-900/90 border border-green-900/40 px-1.5 py-0.5 rounded">Reflected XSS</span>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Wireshark</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Nmap</span>
+                    </div>
+                </div>
+
+                <!-- MOD_07 — BUG FIX: was labelled MOD_06 (duplicate), now correctly MOD_07 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Exploit</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_07</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">MITM / ARP Poisoning</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Employed Ettercap on Kali against a Windows VM. Initiated active ARP poisoning and sniffing, confirming unencrypted traffic vulnerabilities.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">Ettercap</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">ARP Spoofing</span>
+                    </div>
+                </div>
+
+                <!-- MOD_08 -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between hover:border-green-500/40">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[9px] bg-white/5 text-gray-300 px-2.5 py-1 rounded-md border border-white/10 font-mono font-bold uppercase tracking-widest">Web Sec</span>
+                            <span class="text-[10px] text-green-400 font-mono font-bold">MOD_08</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-3 font-mono">SQLi &amp; XSS Mechanics</h4>
+                        <p class="text-[13px] text-gray-400 font-light leading-relaxed mb-6">
+                            Solved PortSwigger Academy targets. Executed SQL injection payloads and demonstrated dynamic persistent cross-site scripting attack vectors.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-gray-400 font-mono mt-auto">
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">SQLi</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">XSS</span>
+                        <span class="bg-black/50 border border-white/5 px-2 py-1 rounded">PortSwigger</span>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- SECTION 5: MISSION TIMELINE & ROADMAP -->
-        <section id="roadmap" class="mb-16 scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[05]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Chronological Log & Operational Roadmap
+        <!-- ══ [05] ROADMAP ══════════════════════════════ -->
+        <section id="roadmap" class="mb-20 scroll-mt-24 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[05]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Operational Roadmap
                 </h3>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Timeline view -->
-                <div class="lg:col-span-7 cyber-card p-6 rounded-lg relative shadow-lg">
-                    <h4 class="text-xs text-green-400 font-extrabold tracking-widest uppercase border-b border-green-900/40 pb-2 mb-4">
-                        CHRONOLOGICAL ROADMAP LOG
-                    </h4>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 cyber-card p-8 rounded-2xl">
+                    <h4 class="text-xs text-gray-400 font-mono font-bold tracking-widest uppercase border-b border-white/5 pb-3 mb-6">CHRONOLOGICAL_LOG</h4>
+                    <div class="relative pl-8 border-l border-white/10 space-y-8">
 
-                    <!-- Timeline flow -->
-                    <div class="relative pl-8 border-l border-green-900/50 space-y-6">
-                        
-                        <!-- Log node 1 -->
                         <div class="relative">
-                            <!-- Bullet mark - centered exactly on the vertical line offset of half parent padding -->
-                            <span class="absolute -left-[33px] top-1 w-4 h-4 bg-black border-2 border-green-500 rounded-full flex items-center justify-center">
-                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                            </span>
-                            <span class="text-[10px] text-green-400 font-mono font-extrabold uppercase">PHASE_01 // COMPLETED</span>
-                            <h5 class="text-sm font-bold text-white mt-0.5">Foundational Training & Coursework</h5>
-                            <p class="text-xs text-gray-100 font-medium leading-relaxed mt-1">
-                                Set up secure virtual host configurations, mastered bash shell execution streams, and completed formal training paths across networking core principles and introductory pentesting.
+                            <span class="absolute -left-[37px] top-1 w-4 h-4 bg-black border-2 border-green-500 rounded-full shadow-[0_0_8px_rgba(0,255,102,0.5)]"></span>
+                            <span class="text-[10px] text-green-500 font-mono font-bold tracking-wider uppercase">PHASE_01 // COMPLETED</span>
+                            <h5 class="text-base font-bold text-white mt-1 font-mono">Foundational Training</h5>
+                            <p class="text-[13px] text-gray-400 font-light leading-relaxed mt-2">
+                                Set up secure virtual host configurations, mastered bash shell execution streams, and completed formal training paths across networking core principles.
                             </p>
                         </div>
 
-                        <!-- Log node 2 -->
                         <div class="relative">
-                            <!-- Bullet mark -->
-                            <span class="absolute -left-[33px] top-1 w-4 h-4 bg-black border-2 border-green-500 rounded-full flex items-center justify-center">
-                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                            </span>
-                            <span class="text-[10px] text-green-400 font-mono font-extrabold uppercase">PHASE_02 // COMPLETED</span>
-                            <h5 class="text-sm font-bold text-white mt-0.5">Hands-On Practice Platform Validation</h5>
-                            <p class="text-xs text-gray-100 font-medium leading-relaxed mt-1">
-                                Completed over 53 rooms on TryHackMe, securing an active position in the global top 15% rank. Demonstrated fundamental attack logic execution in PortSwigger laboratories.
+                            <span class="absolute -left-[37px] top-1 w-4 h-4 bg-black border-2 border-green-500 rounded-full shadow-[0_0_8px_rgba(0,255,102,0.5)]"></span>
+                            <span class="text-[10px] text-green-500 font-mono font-bold tracking-wider uppercase">PHASE_02 // COMPLETED</span>
+                            <h5 class="text-base font-bold text-white mt-1 font-mono">Platform Validation</h5>
+                            <p class="text-[13px] text-gray-400 font-light leading-relaxed mt-2">
+                                Completed over 53 rooms on TryHackMe, securing a top 15% global rank. Demonstrated attack logic execution in PortSwigger laboratories.
                             </p>
                         </div>
 
-                        <!-- Log node 3 -->
                         <div class="relative">
-                            <!-- Bullet mark -->
-                            <span class="absolute -left-[33px] top-1 w-4 h-4 bg-black border-2 border-yellow-500 rounded-full flex items-center justify-center animate-pulse">
-                                <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                            </span>
-                            <span class="text-[10px] text-yellow-400 font-mono font-extrabold uppercase">PHASE_03 // ACTIVE PRACTICE</span>
-                            <h5 class="text-sm font-bold text-white mt-0.5">AI Fundamentals & Integrated Safety</h5>
-                            <p class="text-xs text-gray-100 font-medium leading-relaxed mt-1">
-                                Actively learning deep artificial intelligence logic mechanics, model alignments, and the intersection of neural architectures with security vulnerabilities.
+                            <span class="absolute -left-[37px] top-1 w-4 h-4 bg-black border-2 border-yellow-500 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></span>
+                            <span class="text-[10px] text-yellow-500 font-mono font-bold tracking-wider uppercase">PHASE_03 // ACTIVE</span>
+                            <h5 class="text-base font-bold text-white mt-1 font-mono">AI &amp; Security Integration</h5>
+                            <p class="text-[13px] text-gray-400 font-light leading-relaxed mt-2">
+                                Learning artificial intelligence mechanics, model alignments, and the intersection of neural architectures with security vulnerabilities.
                             </p>
                         </div>
 
-                        <!-- Log node 4 -->
                         <div class="relative">
-                            <!-- Bullet mark -->
-                            <span class="absolute -left-[33px] top-1 w-4 h-4 bg-black border-2 border-gray-700 rounded-full flex items-center justify-center">
-                                <span class="w-1.5 h-1.5 bg-gray-700 rounded-full"></span>
-                            </span>
-                            <span class="text-[10px] text-white font-mono font-bold uppercase">PHASE_04 // PLANNED</span>
-                            <h5 class="text-sm font-bold text-white mt-0.5">System Automation Scripts & CTF Publications</h5>
-                            <p class="text-xs text-gray-100 font-medium leading-relaxed mt-1">
-                                Developing and compiling automated security audit scripts in Python/Bash, preparing detailed, easy-to-read lab write-ups, and practicing for certifications like CEH/OSCP.
+                            <span class="absolute -left-[37px] top-1 w-4 h-4 bg-[#1a1a1a] border-2 border-gray-600 rounded-full"></span>
+                            <span class="text-[10px] text-gray-500 font-mono font-bold tracking-wider uppercase">PHASE_04 // PLANNED</span>
+                            <h5 class="text-base font-bold text-gray-300 mt-1 font-mono">Automation &amp; Publications</h5>
+                            <p class="text-[13px] text-gray-500 font-light leading-relaxed mt-2">
+                                Developing automated security audit scripts in Python/Bash, preparing lab write-ups, and practicing for certifications like CEH/OSCP.
                             </p>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- Right block: Writing CTF notes placeholder -->
-                <div class="lg:col-span-5 cyber-card p-6 rounded-lg flex flex-col justify-between shadow-lg">
-                    <div>
-                        <h4 class="text-xs text-green-400 font-extrabold tracking-widest uppercase border-b border-green-900/40 pb-2 mb-4">
-                            PUBLIC WRITEUPS REPO
-                        </h4>
-                        
-                        <div class="bg-green-950/20 border border-green-900/40 p-4 rounded text-center my-6">
-                            <span class="text-3xl inline-block mb-3">📁</span>
-                            <div class="text-xs text-green-300 font-mono font-bold mb-1">/var/www/writeups</div>
-                            <div class="text-[10px] text-white font-extrabold uppercase">[ Directory Status: Empty ]</div>
-                            <p class="text-[11px] text-gray-100 font-medium mt-3 leading-relaxed">
-                                Currently compiling and organizing structural notes from solved TryHackMe targets and scripting operations. Write-ups will be published here upon completion of my current academic milestones!
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="cyber-card p-8 rounded-2xl flex-1 flex flex-col">
+                        <h4 class="text-xs text-gray-400 font-mono font-bold tracking-widest uppercase border-b border-white/5 pb-3 mb-6">WRITEUPS_REPO</h4>
+                        <div class="bg-black/40 border border-white/5 p-8 rounded-xl text-center flex-1 flex flex-col justify-center">
+                            <div class="text-4xl mb-4 opacity-40 font-mono text-green-400">/\_/\</div>
+                            <div class="text-xs text-gray-300 font-mono font-bold mb-2">/var/www/writeups</div>
+                            <div class="text-[10px] text-gray-500 font-mono tracking-widest uppercase">[ Status: Compiling ]</div>
+                            <p class="text-[12px] text-gray-400 font-light mt-4 leading-relaxed">
+                                Organizing notes from TryHackMe targets and scripting operations. Publications will deploy here upon milestone completion.
                             </p>
                         </div>
                     </div>
-
-                    <div class="bg-black/60 border border-green-900/40 p-3 rounded text-xs text-white font-semibold">
-                        <span class="text-yellow-400 font-bold mr-1">[!]</span> Future Targets: Network automation scripts, security system auditing trackers, and custom Linux privilege escalation playbooks.
+                    <div class="bg-yellow-500/5 border border-yellow-500/20 p-4 rounded-xl text-xs text-gray-300 font-light flex items-start gap-3">
+                        <span class="text-yellow-500 font-bold mt-0.5 shrink-0">⚠</span>
+                        <p>Future Targets: Network automation scripts, security auditing trackers, and custom Linux privilege escalation playbooks.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 6: CONTACT & OUTREACH -->
-        <section id="connect" class="mb-16">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="text-[#00ff66] text-xs sm:text-sm font-mono font-bold bg-green-950/40 px-2.5 py-1 rounded border border-green-500/30 shrink-0 select-none shadow-[0_0_10px_rgba(0,255,102,0.15)]">[06]</div>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-widest uppercase flex-1 border-b border-[#00ff66]/30 pb-2 glow-text">
-                    Outreach & Teleport Links
+        <!-- ══ [06] CONTACT ══════════════════════════════ -->
+        <section id="connect" class="mb-16 reveal">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-green-400 text-sm font-mono font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30 shadow-[0_0_15px_rgba(0,255,102,0.1)]">[06]</div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide uppercase flex-1 border-b border-white/10 pb-3 font-mono">
+                    Outreach Links
                 </h3>
             </div>
 
-            <div class="cyber-card p-6 sm:p-8 rounded-lg relative overflow-hidden text-center max-w-3xl mx-auto shadow-lg">
-                <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent"></div>
-                <h4 class="text-xl font-bold text-white tracking-wide mb-3 animate-pulse">Initiate Connection Sequence</h4>
-                <p class="text-sm text-gray-100 mb-6 max-w-xl mx-auto leading-relaxed">
-                    I am highly motivated to pursue junior internships, developer collaborations, bug bounty opportunities, and cybersecurity discussion streams. Reach out on any of my active communication frequencies.
+            <div class="cyber-card p-10 sm:p-12 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
+                <h4 class="text-2xl font-bold text-white tracking-tight mb-4 font-mono">Initiate Connection Sequence</h4>
+                <p class="text-[15px] text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                    Highly motivated to pursue junior internships, developer collaborations, bug bounty opportunities, and cybersecurity discussion streams.
                 </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto mb-6">
-                    <!-- LinkedIn Link -->
-                    <a href="https://www.linkedin.com/in/cyb3rvigil" target="_blank" class="flex flex-col items-center bg-black/60 border border-green-900/30 hover:border-green-400 p-4 rounded transition-all group">
-                        <span class="text-lg group-hover:scale-110 transition-transform mb-1">💼</span>
-                        <span class="text-xs text-white font-bold">LinkedIn</span>
-                        <span class="text-[10px] text-green-400 mt-1 font-bold">/cyb3rvigil</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8 font-mono">
+                    <a href="https://www.linkedin.com/in/cyb3rvigil" target="_blank"
+                       class="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 hover:border-green-500/50 p-6 rounded-2xl transition-all duration-300 group">
+                        <span class="text-3xl group-hover:-translate-y-2 transition-transform duration-300 mb-3 opacity-80 group-hover:opacity-100">💼</span>
+                        <span class="text-sm text-white font-bold tracking-wider">LinkedIn</span>
+                        <span class="text-[10px] text-green-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">/cyb3rvigil</span>
                     </a>
-
-                    <!-- Twitter Link -->
-                    <a href="https://x.com/Cyb3rV1gil" target="_blank" class="flex flex-col items-center bg-black/60 border border-green-900/30 hover:border-green-400 p-4 rounded transition-all group">
-                        <span class="text-lg group-hover:scale-110 transition-transform mb-1">🐦</span>
-                        <span class="text-xs text-white font-bold">Twitter / X</span>
-                        <span class="text-[10px] text-green-400 mt-1 font-bold">@Cyb3rV1gil</span>
+                    <a href="https://x.com/Cyb3rV1gil" target="_blank"
+                       class="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 hover:border-green-500/50 p-6 rounded-2xl transition-all duration-300 group">
+                        <span class="text-3xl group-hover:-translate-y-2 transition-transform duration-300 mb-3 opacity-80 group-hover:opacity-100">🐦</span>
+                        <span class="text-sm text-white font-bold tracking-wider">Twitter/X</span>
+                        <span class="text-[10px] text-green-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">@Cyb3rV1gil</span>
                     </a>
-
-                    <!-- GitHub Link -->
-                    <a href="https://github.com/cyb3rvigil" target="_blank" class="flex flex-col items-center bg-black/60 border border-green-900/30 hover:border-green-400 p-4 rounded transition-all group">
-                        <span class="text-lg group-hover:scale-110 transition-transform mb-1">🌐</span>
-                        <span class="text-xs text-white font-bold">GitHub</span>
-                        <span class="text-[10px] text-green-400 mt-1 font-bold">/cyb3rvigil</span>
+                    <a href="https://github.com/cyb3rvigil" target="_blank"
+                       class="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 hover:border-green-500/50 p-6 rounded-2xl transition-all duration-300 group">
+                        <span class="text-3xl group-hover:-translate-y-2 transition-transform duration-300 mb-3 opacity-80 group-hover:opacity-100">💻</span>
+                        <span class="text-sm text-white font-bold tracking-wider">GitHub</span>
+                        <span class="text-[10px] text-green-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">/cyb3rvigil</span>
                     </a>
                 </div>
 
-                <div class="inline-block text-[11px] text-green-300 font-mono font-extrabold bg-green-950/40 border border-green-600 px-3 py-1.5 rounded">
-                    🚀 STATUS: OPEN TO ANY INTERNSHIP OPPORTUNITY
+                <div class="inline-block text-[11px] text-black font-mono font-bold bg-green-500 px-4 py-2 rounded-lg tracking-widest shadow-[0_0_15px_rgba(0,255,102,0.3)]">
+                    STATUS: OPEN FOR INTERNSHIPS
                 </div>
             </div>
         </section>
 
-        <!-- Bottom Footer -->
-        <footer class="text-center border-t border-green-900/40 pt-6 text-sm text-gray-500">
-            <p class="font-mono text-xs">Connection open for foreign hosts...</p>
-            <p class="mt-2 text-[10px] text-green-700 font-mono">© <span id="current-year"></span> Cyb3rVigil. Secured Portfolio Telemetry Interface v2.0</p>
+        <!-- ══ FOOTER ════════════════════════════════════ -->
+        <footer class="text-center border-t border-white/10 pt-8 mt-12 mb-4 text-gray-500 font-mono">
+            <p class="text-xs tracking-widest uppercase">Connection terminated. Session closed.</p>
+            <p class="mt-3 text-[10px]">
+                © <span id="current-year"></span> Cyb3rVigil &nbsp;·&nbsp;
+                Secured Portfolio Telemetry Interface v3.1 &nbsp;·&nbsp;
+                <span class="text-green-500/60">All labs conducted in controlled environments.</span>
+            </p>
         </footer>
 
     </main>
 
-    <!-- JavaScript logic: Animations, Typewriter, Matrix backgrounds, Interactive Shell -->
-    <script>
-        // Set dynamic date parameters (live real-world system clock)
-        function updateTelemetryTime() {
-            const now = new Date();
-            document.getElementById('login-time').innerText = now.toUTCString();
-        }
-        updateTelemetryTime();
-        setInterval(updateTelemetryTime, 1000); // Automatically updates every second
-
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Canvas matrix background effect with fluid multi-device adaptability
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-
-        let columns;
-        let yPositions;
-        let fontSize = 12;
-
-        // Make matrix text size and column layout auto-adaptable to device widths
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            fontSize = window.innerWidth < 640 ? 10 : (window.innerWidth < 1024 ? 12 : 14);
-            columns = Math.floor(canvas.width / (fontSize * 1.5));
-            
-            // Seed rain coordinates dynamically to prevent blank space on load/resize
-            yPositions = Array(columns).fill(0).map(() => Math.random() * -canvas.height);
-        }
-        
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(3, 3, 6, 0.08)'; // trails matching the background color
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Matrix text rendered in a softer, lower contrast color so foreground content pops
-            ctx.fillStyle = 'rgba(0, 255, 102, 0.15)'; 
-            ctx.font = `${fontSize}px monospace`;
-
-            for (let i = 0; i < yPositions.length; i++) {
-                const char = Math.random() > 0.5 ? '1' : '0'; // Binary sequence
-                const x = i * (fontSize * 1.5);
-                const y = yPositions[i];
-
-                ctx.fillText(char, x, y);
-
-                if (y > canvas.height && Math.random() > 0.975) {
-                    yPositions[i] = -20;
-                } else {
-                    yPositions[i] += fontSize + 4;
-                }
-            }
-        }
-        setInterval(drawMatrix, 50);
-
-        // Typing introductions sequence
-        const introTexts = [
-            "Hi there, I'm Cyb3rVigil 👋 I am a CS Engineering student and an Aspiring Cybersecurity Expert.",
-            "Welcome to my secure telemetry shell. 👋 Passionate about network forensics, AI-Security, and Kali Linux.",
-            "Initiating connection... 👋 Learning to analyze system states, dissect protocol packet layers, and lock down data fields.",
-            "Hello, World. 👋 An engineering student utilizing hands-on labs and TryHackMe metrics to scale security barriers."
-        ];
-        
-        const textToType = introTexts[Math.floor(Math.random() * introTexts.length)];
-        const speed = 40; 
-        let textIndex = 0;
-
-        function typeWriter() {
-            if (textIndex < textToType.length) {
-                document.getElementById("typewriter").innerHTML += textToType.charAt(textIndex);
-                textIndex++;
-                setTimeout(typeWriter, speed);
-            }
-        }
-        setTimeout(typeWriter, 800);
-
-        // Interactive Terminal Simulator Logic
-        const terminalBody = document.getElementById('terminal-body');
-        const terminalInput = document.getElementById('terminal-input');
-
-        // Command Registry definition
-        const commands = {
-            help: `Available commands:<br>
-  - <span class="text-white">whoami</span>   : Display current active identity and bio summary<br>
-  - <span class="text-white">skills</span>   : Print breakdown of technical capabilities & tooling<br>
-  - <span class="text-white">labs</span>     : Fetch log index of physical and web laboratory modules<br>
-  - <span class="text-white">certs</span>    : Display active engineering certifications with verification parameters<br>
-  - <span class="text-white">thm</span>      : Query real TryHackMe platform ranking data<br>
-  - <span class="text-white">socials</span>  : Output active communication channels & links<br>
-  - <span class="text-white">clear</span>    : Reset the screen display terminal console`,
-            
-            whoami: `identity: <span class="text-white font-bold">Cyb3rVigil</span><br>
-status  : Computer Science Engineering Student / Aspiring Pentester<br>
-focus   : System security integration, traffic dissection, automated scripts<br>
-motto   : Pure practical engineering, hands-on evidence over movie clichés.`,
-            
-            skills: `Technical Competency Matrices:<br>
----------------------------------------------------------<br>
-• <span class="text-white">Reconnaissance</span> : Nmap, Zenmap, Port Audits, Packet Inspection<br>
-• <span class="text-white">Simulations</span>    : Ettercap ARP Spoofing, MITM Scenarios, Metasploit<br>
-• <span class="text-white">Web Security</span>   : SQL Injection, Reflected XSS, PortSwigger Labs<br>
-• <span class="text-white">Scripting/OS</span>   : Python Automation, Bash Systems, Kali Linux, Debian`,
-            
-            labs: `Completed Labs Index:<br>
----------------------------------------------------------<br>
-[01] Network discovery and host mapping audits (Nmap/Zenmap)<br>
-[02] Wireshark protocol intercept diagnostics (Captured cleartext HTTP parameter entries)<br>
-[03] Intercept simulations: Ettercap ARP poisoning vectors under Kali attacking WinVM<br>
-[04] PortSwigger Academy solved targets (SQL Injection database querying & script injection)`,
-            
-            certs: `Verified Certifications List:<br>
----------------------------------------------------------<br>
-- <span class="text-white">Cybersecurity Certification (Tutedude)</span><br>
-  ID: TD-ABHI-CS-1135 // <a href="https://upskill.tutedude.com/certificate/TD-ABHI-CS-1135" target="_blank" class="text-blue-400 underline font-bold">[ Verify ]</a><br>
-- <span class="text-white">Ethical Hacking Certification (Tutedude)</span><br>
-  ID: TD-ABHI-EH-1205 // <a href="https://upskill.tutedude.com/certificate/TD-ABHI-EH-1205" target="_blank" class="text-blue-400 underline font-bold">[ Verify ]</a>`,
-            
-            thm: `Platform Telemetry (TryHackMe):<br>
----------------------------------------------------------<br>
-• <span class="text-white">Global Standing Rank</span> : Top 15% Rank worldwide<br>
-• <span class="text-white">Completed Rooms</span>      : 53 Rooms completed successfully<br>
-• <span class="text-white">Earned Badges</span>        : 7 active training badges`,
-            
-            socials: `Active Communications & Connections:<br>
----------------------------------------------------------<br>
-- LinkedIn : <a href="https://www.linkedin.com/in/cyb3rvigil" target="_blank" class="text-green-400 underline font-bold">linkedin.com/in/cyb3rvigil</a><br>
-- Twitter  : <a href="https://x.com/Cyb3rV1gil" target="_blank" class="text-green-400 underline font-bold">x.com/Cyb3rV1gil</a><br>
-- GitHub   : <a href="https://github.com/cyb3rvigil" target="_blank" class="text-green-400 underline font-bold">github.com/cyb3rvigil</a>`
-        };
-
-        // Command dispatcher function
-        function executeTerminalCommand(cmdString) {
-            const trimmedCmd = cmdString.trim().toLowerCase();
-            
-            // Print user input prefix line
-            const promptLine = document.createElement('div');
-            promptLine.innerHTML = `<span class="text-green-500 font-bold font-mono">cyb3rvigil@kali:~$</span> <span class="text-white">${cmdString}</span>`;
-            terminalBody.appendChild(promptLine);
-
-            if (trimmedCmd === 'clear') {
-                terminalBody.innerHTML = '';
-            } else if (trimmedCmd === '') {
-                // Do nothing
-            } else if (commands[trimmedCmd]) {
-                const responseLine = document.createElement('div');
-                responseLine.className = 'text-green-300 leading-relaxed pl-2 border-l border-green-900/40 py-1 font-medium';
-                responseLine.innerHTML = commands[trimmedCmd];
-                terminalBody.appendChild(responseLine);
-            } else {
-                const errorLine = document.createElement('div');
-                errorLine.className = 'text-red-400 font-bold';
-                errorLine.innerHTML = `Command execution error: "${cmdString}" not found. Type <span class="text-white font-bold">help</span> to view active instructions.`;
-                terminalBody.appendChild(errorLine);
-            }
-
-            // Scroll to bottom of terminal output area
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        }
-
-        // Handle keyboard enter interactions
-        terminalInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const enteredText = terminalInput.value;
-                executeTerminalCommand(enteredText);
-                terminalInput.value = ''; // Reset inputs
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
