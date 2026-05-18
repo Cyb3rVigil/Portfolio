@@ -1,87 +1,243 @@
-/* Custom ambient background configuration */
-.bg-cyber-radial {
-    background: radial-gradient(circle at 50% -20%, rgba(0, 255, 102, 0.08) 0%, rgba(3, 3, 6, 0) 60%);
+/* ============================================================
+   CYBERV1GIL PORTFOLIO — STYLESHEET v3.1
+   Fonts: Fira Code (mono/hacker) + Inter (body)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Base ───────────────────────────────────────────────── */
+body {
+    background-color: #030306;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
-/* CRT Scanline effect */
+.font-mono { font-family: 'Fira Code', monospace !important; }
+
+/* ── Ambient Background ─────────────────────────────────── */
+.bg-cyber-radial {
+    background: radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.08) 0%, rgba(3, 3, 6, 0) 70%);
+}
+
+/* ── Gradient Text ──────────────────────────────────────── */
+.text-gradient {
+    background: linear-gradient(135deg, #00ff66 0%, #00b8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── CRT Scanlines ──────────────────────────────────────── */
 .scanlines {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%, 
-        rgba(0, 0, 0, 0.4) 50%
-    );
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.22) 50%);
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 999;
-    opacity: 0.08;
+    opacity: 0.15;
 }
 
-/* Soft glowing styling */
-.glow-text {
-    text-shadow: 0 0 4px rgba(0, 255, 102, 0.5), 0 0 12px rgba(0, 255, 102, 0.2);
-}
-.glow-border {
-    box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
-}
+/* ── Glow ───────────────────────────────────────────────── */
+.glow-text { text-shadow: 0 0 10px rgba(0,255,102,0.4); }
 
-/* Blinking terminal prompt cursor */
+/* ── Blinking Cursor ────────────────────────────────────── */
 .cursor {
     display: inline-block;
-    width: 8px;
-    height: 1.1em;
+    width: 8px; height: 1.1em;
     background-color: #00ff66;
     vertical-align: middle;
     animation: blink 1s step-end infinite;
 }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #1a4a2b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00ff66; }
 
-/* Custom CSS Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: #030306; 
-}
-::-webkit-scrollbar-thumb {
-    background: #003311; 
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #00ff66; 
-}
-
-/* Subtle background overlay grid */
+/* ── Cyber Grid ─────────────────────────────────────────── */
 .cyber-grid {
-    background-size: 40px 40px;
-    background-image: 
-        linear-gradient(to right, rgba(0, 255, 102, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 255, 102, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, rgba(0,255,102,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,255,102,0.03) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
 }
 
-/* Glassmorphism layouts with solid opaque backings */
+/* ── Glassmorphism Cards ────────────────────────────────── */
 .cyber-card {
-    background: rgba(10, 10, 14, 0.96);
-    border: 1px solid rgba(0, 255, 102, 0.25);
+    background: rgba(12,14,18,0.6);
+    border: 1px solid rgba(0,255,102,0.15);
+    border-top: 1px solid rgba(0,255,102,0.3);
     backdrop-filter: blur(16px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .cyber-card:hover {
-    border-color: rgba(0, 255, 102, 0.6);
-    box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
-    transform: translateY(-2px);
+    border-color: rgba(0,255,102,0.5);
+    box-shadow: 0 10px 40px rgba(0,255,102,0.15);
+    transform: translateY(-4px);
+    background: rgba(16,20,24,0.8);
 }
 
-/* Inputs terminal outline glow */
-.terminal-input-field:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+/* ── Terminal Input ─────────────────────────────────────── */
+.terminal-input-field:focus { outline: none; }
+
+/* ── Nav Active State ───────────────────────────────────── */
+.nav-active {
+    color: #00ff66 !important;
+    text-shadow: 0 0 10px rgba(0,255,102,0.6);
 }
 
+/* ── Scroll Reveal ──────────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5,0,0,1);
+}
+.reveal.active { opacity:1; transform:translateY(0); }
+
+/* ── BUG FIX: Shimmer Keyframe (was missing — broke hero btn) */
+@keyframes shimmer {
+    0%   { transform: translateX(-150%); }
+    100% { transform: translateX(250%); }
+}
+
+/* ── Glitch Effect ──────────────────────────────────────── */
+@keyframes glitch-clip-1 {
+    0%,100% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:translate(0); }
+    20%      { clip-path:polygon(0 15%,100% 15%,100% 30%,0 30%); transform:translate(-3px,0); color:#00ff66; }
+    40%      { clip-path:polygon(0 55%,100% 55%,100% 70%,0 70%); transform:translate(3px,0); }
+    60%      { clip-path:polygon(0 40%,100% 40%,100% 48%,0 48%); transform:translate(-2px,0); }
+    80%      { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:translate(0); }
+}
+@keyframes glitch-clip-2 {
+    0%,100% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:translate(0); }
+    25%      { clip-path:polygon(0 25%,100% 25%,100% 45%,0 45%); transform:translate(4px,0); color:#00b8ff; }
+    50%      { clip-path:polygon(0 60%,100% 60%,100% 75%,0 75%); transform:translate(-3px,0); }
+    75%      { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:translate(0); }
+}
+
+.glitch-container { position:relative; display:inline-block; }
+.glitch-container::before,
+.glitch-container::after {
+    content: attr(data-text);
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: linear-gradient(135deg,#00ff66 0%,#00b8ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.glitch-container::before {
+    animation: glitch-clip-1 6s infinite;
+    opacity: 0.6;
+}
+.glitch-container::after {
+    animation: glitch-clip-2 6s infinite;
+    animation-delay: 0.15s;
+    opacity: 0.4;
+}
+
+/* ── Boot Screen ────────────────────────────────────────── */
+#boot-screen {
+    position: fixed;
+    inset: 0;
+    background: #030306;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fira Code', monospace;
+    padding: 2rem;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#boot-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+#boot-ascii {
+    color: #00ff66;
+    font-size: clamp(6px, 1.2vw, 13px);
+    line-height: 1.2;
+    white-space: pre;
+    text-shadow: 0 0 20px rgba(0,255,102,0.5);
+    margin-bottom: 2rem;
+}
+#boot-log { max-height: 200px; overflow: hidden; width: 100%; max-width: 600px; }
+.boot-line { font-size: 11px; color: #00ff66; margin: 2px 0; opacity: 0; animation: bootFadeIn 0.2s forwards; }
+.boot-line.warn { color: #fbbf24; }
+.boot-line.err  { color: #f87171; }
+@keyframes bootFadeIn { to { opacity:1; } }
+
+/* ── Neon Pulse ─────────────────────────────────────────── */
+@keyframes neonPulse {
+    0%,100% { box-shadow: 0 0 5px rgba(0,255,102,0.2), inset 0 0 5px rgba(0,255,102,0.05); }
+    50%      { box-shadow: 0 0 20px rgba(0,255,102,0.5), inset 0 0 15px rgba(0,255,102,0.1); }
+}
+.neon-pulse { animation: neonPulse 2.5s ease-in-out infinite; }
+
+/* ── Terminal line fade-in ──────────────────────────────── */
+@keyframes termFadeIn { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:translateY(0)} }
+.term-line { animation: termFadeIn 0.12s ease-out forwards; }
+
+/* ── Stat Counter ───────────────────────────────────────── */
+.stat-val { font-variant-numeric: tabular-nums; }
+
+/* ── Progress Bar ───────────────────────────────────────── */
+.loading-bar-track {
+    width: 100%; max-width: 400px;
+    height: 3px; background: rgba(0,255,102,0.1);
+    border-radius: 2px; margin-top: 1.5rem;
+    overflow: hidden;
+}
+.loading-bar-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #00ff66, #00b8ff);
+    border-radius: 2px;
+    transition: width 0.18s ease;
+    box-shadow: 0 0 8px rgba(0,255,102,0.6);
+}
+
+/* ── Packet Feed ────────────────────────────────────────── */
+#packet-feed { font-size: 10px; font-family: 'Fira Code', monospace; }
+#packet-feed .pkt-row {
+    display: grid;
+    grid-template-columns: 60px 40px 1fr 45px;
+    gap: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    padding: 2px 0;
+    animation: termFadeIn 0.15s ease-out forwards;
+}
+
+/* ── Scan line sweep on header ──────────────────────────── */
+.header-scan {
+    position: relative;
+    overflow: hidden;
+}
+.header-scan::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,102,0.06), transparent);
+    animation: headerSweep 4s linear infinite;
+    pointer-events: none;
+}
+@keyframes headerSweep { 0%{left:-60%} 100%{left:160%} }
+
+/* ── Ping dot animation ─────────────────────────────────── */
+@keyframes pingDot {
+    0%   { box-shadow: 0 0 0 0 rgba(0,255,102,0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(0,255,102,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,255,102,0); }
+}
+.ping-dot { animation: pingDot 1.4s ease-out infinite; }
