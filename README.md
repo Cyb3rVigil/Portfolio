@@ -148,25 +148,26 @@ skills_in_progress = [
 
 ---
 
+
 # 📈 GitHub Analytics
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=Cyb3rVigil&show_icons=true&theme=chartreuse-dark&hide_border=true"/>
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=Cyb3rVigil&show_icons=true&include_all_commits=true&count_private=true&theme=chartreuse-dark&hide_border=true&cache_seconds=1800"/>
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Cyb3rVigil&layout=compact&theme=chartreuse-dark&hide_border=true"/>
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Cyb3rVigil&layout=compact&langs_count=8&theme=chartreuse-dark&hide_border=true&cache_seconds=1800"/>
 
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=Cyb3rVigil&theme=chartreuse-dark&hide_border=true"/>
 
-</div>
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Cyb3rVigil&theme=github_dark"/>
 
----
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Cyb3rVigil&theme=github_dark"/>
 
-# 🏆 Achievements & Growth
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Cyb3rVigil&theme=github_dark"/>
 
-<div align="center">
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Cyb3rVigil&theme=github_dark"/>
 
-<img src="https://github-profile-trophy.vercel.app/?username=Cyb3rVigil&theme=matrix&no-frame=true&margin-w=15"/>
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Cyb3rVigil&theme=github_dark&utcOffset=5.5"/>
 
 </div>
 
@@ -176,12 +177,14 @@ skills_in_progress = [
 
 <div align="center">
 
-<a href="https://github.com/Cyb3rVigil">
-<img src="https://img.shields.io/badge/GitHub-00FF41?style=for-the-badge&logo=github&logoColor=black"/>
+<a href="https://github.com/Cyb3rVigil" target="_blank">
+<img src="https://img.shields.io/badge/GitHub-Cyb3rVigil-00FF41?style=for-the-badge&logo=github&logoColor=black"/>
 </a>
 
-<a href="https://www.linkedin.com/in/cyb3rvigil/">
-<img src="https://img.shields.io/badge/LinkedIn-00FF41?style=for-the-badge&logo=linkedin&logoColor=black"/>
+&nbsp;&nbsp;
+
+<a href="https://www.linkedin.com/in/cyb3rvigil/" target="_blank">
+<img src="https://img.shields.io/badge/LinkedIn-Cyb3rVigil-00FF41?style=for-the-badge&logo=linkedin&logoColor=black"/>
 </a>
 
 </div>
