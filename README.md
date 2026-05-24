@@ -148,22 +148,6 @@ skills_in_progress = [
 
 ---
 
-# 📂 Featured Repositories
-
-## 🔹 Cybersecurity Notes
-A collection of personal notes and cybersecurity learning resources.
-
-## 🔹 OSINT Toolkit
-Reconnaissance and intelligence gathering resources.
-
-## 🔹 Linux Automation Scripts
-Security-related automation using Bash & Python.
-
-## 🔹 Web Security Practice
-Learning web vulnerabilities and security testing concepts.
-
----
-
 # 📈 GitHub Analytics
 
 <div align="center">
