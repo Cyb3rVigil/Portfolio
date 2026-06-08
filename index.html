@@ -3,351 +3,506 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  <!-- Primary SEO -->
-  <title>Abhinav Satsangi — Cybersecurity Researcher & Offensive Security</title>
-  <meta name="description" content="Abhinav Satsangi (Cyb3r.v1g!l) — Cybersecurity Researcher and Offensive Security Enthusiast. Helping organisations identify, exploit, and fix critical security weaknesses before real attackers do." />
-  <meta name="keywords" content="Abhinav Satsangi, Cyb3r.v1g!l, Cybersecurity Researcher, Offensive Security, Ethical Hacking, Penetration Testing, OSINT, Bug Bounty, Web Application Security, Network Security" />
+  <title>Abhinav Satsangi — Cyb3r.v1g!l | Cybersecurity Researcher</title>
+  <meta name="description" content="Abhinav Satsangi (Cyb3r.v1g!l) — Cybersecurity Researcher and Offensive Security Enthusiast. Helping organisations identify, exploit, and fix critical security weaknesses." />
+  <meta name="keywords" content="Abhinav Satsangi, Cyb3r.v1g!l, Cybersecurity, Offensive Security, Ethical Hacking, Penetration Testing, OSINT, Bug Bounty" />
   <meta name="author" content="Abhinav Satsangi" />
   <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Abhinav Satsangi — Cybersecurity Researcher" />
-  <meta property="og:description" content="I help organisations identify, exploit, and fix critical security weaknesses before a real attacker can compromise their systems, data, or reputation." />
+  <meta property="og:description" content="I help organisations identify, exploit, and fix critical security weaknesses before a real attacker can." />
   <meta property="og:url" content="https://cyb3rvigil.github.io" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Abhinav Satsangi — Cybersecurity Researcher" />
+  <meta name="twitter:title" content="Abhinav Satsangi — Cyb3r.v1g!l" />
   <meta name="twitter:description" content="Offensive Security Enthusiast. OSINT. Web App Security. Network Recon." />
-
-  <!-- Canonical -->
   <link rel="canonical" href="https://cyb3rvigil.github.io" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ============================================================
-       NAVIGATION
-  ============================================================ -->
+  <!-- ░░░ CUSTOM CURSOR ░░░ -->
+  <div id="cursor" class="cursor" aria-hidden="true">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ░░░ PAGE LOADER ░░░ -->
+  <div id="loader" class="loader" aria-hidden="true" role="status">
+    <div class="loader__box">
+      <div class="loader__row">
+        <span class="loader__prompt">root@cyb3rvigil:~$&nbsp;</span>
+        <span id="loaderText" class="loader__text"></span>
+        <span class="loader__caret">▋</span>
+      </div>
+      <div id="loaderProgress" class="loader__progress" hidden>
+        <div class="loader__bar-track">
+          <div id="loaderFill" class="loader__bar-fill"></div>
+        </div>
+        <span id="loaderPct" class="loader__pct">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ NAVIGATION ░░░ -->
   <header class="nav" id="nav" role="banner">
     <nav class="nav__inner" aria-label="Primary navigation">
       <a href="#hero" class="nav__logo" aria-label="Cyb3r.v1g!l — home">
-        <span class="nav__logo-bracket">[</span>
-        <span class="nav__logo-text">Cyb3r.v1g!l</span>
-        <span class="nav__logo-bracket">]</span>
+        <span class="nav__logo-b">[</span>
+        <span class="nav__logo-n">Cyb3r.v1g!l</span>
+        <span class="nav__logo-b">]</span>
       </a>
 
       <ul class="nav__links" role="list">
-        <li><a href="#about" class="nav__link">About</a></li>
-        <li><a href="#skills" class="nav__link">Arsenal</a></li>
-        <li><a href="#projects" class="nav__link">Work</a></li>
+        <li><a href="#about"          class="nav__link">About</a></li>
+        <li><a href="#skills"         class="nav__link">Arsenal</a></li>
+        <li><a href="#terminal"       class="nav__link">Terminal</a></li>
+        <li><a href="#projects"       class="nav__link">Work</a></li>
+        <li><a href="#journey"        class="nav__link">Journey</a></li>
         <li><a href="#certifications" class="nav__link">Certs</a></li>
-        <li><a href="#contact" class="nav__link">Contact</a></li>
+        <li><a href="#contact"        class="nav__link">Contact</a></li>
       </ul>
 
-      <a href="mailto:topper.rei@gmail.com" class="nav__cta btn btn--primary" aria-label="Hire Abhinav Satsangi">
-        <span class="btn__text">Hire Me</span>
-        <span class="btn__icon" aria-hidden="true">↗</span>
+      <a href="mailto:topper.rei@gmail.com" class="nav__cta btn btn--em magnetic" aria-label="Hire Abhinav">
+        Hire Me&nbsp;<span aria-hidden="true">↗</span>
       </a>
 
-      <button class="nav__hamburger" id="navHamburger" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="navMobileMenu">
-        <span class="nav__hamburger-line"></span>
-        <span class="nav__hamburger-line"></span>
-        <span class="nav__hamburger-line"></span>
+      <button id="hamburger" class="nav__burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
       </button>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="nav__mobile" id="navMobileMenu" role="dialog" aria-label="Mobile navigation" hidden>
-      <ul class="nav__mobile-links" role="list">
-        <li><a href="#about" class="nav__mobile-link">About</a></li>
-        <li><a href="#skills" class="nav__mobile-link">Arsenal</a></li>
-        <li><a href="#projects" class="nav__mobile-link">Work</a></li>
-        <li><a href="#certifications" class="nav__mobile-link">Certs</a></li>
-        <li><a href="#contact" class="nav__mobile-link">Contact</a></li>
-        <li><a href="mailto:topper.rei@gmail.com" class="nav__mobile-cta">Hire Me ↗</a></li>
+    <div id="mobileNav" class="nav__mobile" hidden role="dialog" aria-label="Mobile navigation">
+      <ul role="list">
+        <li><a href="#about"          class="nav__ml">About</a></li>
+        <li><a href="#skills"         class="nav__ml">Arsenal</a></li>
+        <li><a href="#terminal"       class="nav__ml">Terminal</a></li>
+        <li><a href="#projects"       class="nav__ml">Work</a></li>
+        <li><a href="#journey"        class="nav__ml">Journey</a></li>
+        <li><a href="#certifications" class="nav__ml">Certs</a></li>
+        <li><a href="#contact"        class="nav__ml">Contact</a></li>
+        <li><a href="mailto:topper.rei@gmail.com" class="nav__mc">Hire Me ↗</a></li>
       </ul>
     </div>
   </header>
 
-  <main role="main">
+  <main>
 
-    <!-- ============================================================
-         HERO SECTION
-    ============================================================ -->
+    <!-- ════════════════════════════════════════ HERO -->
     <section class="hero" id="hero" aria-label="Hero introduction">
-      <!-- Background layers -->
-      <div class="hero__bg-dots" aria-hidden="true"></div>
-      <div class="hero__bg-scanlines" aria-hidden="true"></div>
-      <div class="hero__bg-glow" aria-hidden="true"></div>
+      <canvas id="heroCanvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__veil" aria-hidden="true"></div>
 
       <div class="hero__inner">
 
-        <!-- Status bar -->
-        <div class="hero__status" aria-label="Current availability status">
-          <span class="hero__status-dot" aria-hidden="true"></span>
-          <span class="hero__status-text">Available for Work</span>
-          <span class="hero__status-divider" aria-hidden="true">|</span>
-          <span class="hero__status-clock" id="liveClock" aria-live="polite" aria-label="Local time"></span>
+        <div class="hero__status" aria-label="Availability status">
+          <span class="hero__pulse" aria-hidden="true"></span>
+          <span>Available for Opportunities</span>
+          <span class="hero__sep" aria-hidden="true">|</span>
+          <span id="liveClock" aria-live="polite" aria-label="Live clock"></span>
         </div>
 
-        <!-- Alias with glitch -->
-        <div class="hero__alias" aria-label="Alias: Cyb3r.v1g!l">
-          <span class="hero__alias-text glitch" data-text="Cyb3r.v1g!l" aria-hidden="true">Cyb3r.v1g!l</span>
+        <div class="hero__alias" aria-label="Online alias: Cyb3r.v1g!l">
+          <span class="hero__alias-sl" aria-hidden="true">//</span>
+          <span id="aliasText" class="hero__alias-txt"></span>
+          <span class="hero__alias-cur" aria-hidden="true">▋</span>
         </div>
 
-        <!-- Main heading -->
         <h1 class="hero__name">
-          <span class="hero__name-first">Abhinav</span>
-          <span class="hero__name-last">Satsangi</span>
+          <span class="hero__fn">Abhinav</span>
+          <span class="hero__ln">Satsangi</span>
         </h1>
 
-        <!-- Title -->
-        <p class="hero__title">
-          <span class="hero__title-accent">//</span>
-          Cybersecurity Researcher
-          <span class="hero__title-sep">·</span>
-          Offensive Security Enthusiast
+        <p class="hero__role">
+          <span class="hero__role-dl" aria-hidden="true">$&nbsp;</span>
+          <span id="roleText" aria-live="polite"></span>
+          <span class="hero__role-cur" aria-hidden="true">_</span>
         </p>
 
-        <!-- Value proposition -->
-        <p class="hero__value-prop">
-          I help organisations <em>identify</em>, <em>exploit</em>, and <em>fix</em> critical security
-          weaknesses before a real attacker can compromise their systems, data, or reputation.
+        <p class="hero__desc">
+          I help organisations <em>identify</em>, <em>exploit</em>, and <em>remediate</em>
+          critical security weaknesses — before a real threat actor can.
         </p>
 
-        <!-- Terminal block -->
-        <div class="hero__terminal" role="region" aria-label="Terminal greeting">
-          <div class="hero__terminal-bar" aria-hidden="true">
-            <span class="hero__terminal-dot hero__terminal-dot--red"></span>
-            <span class="hero__terminal-dot hero__terminal-dot--yellow"></span>
-            <span class="hero__terminal-dot hero__terminal-dot--green"></span>
-            <span class="hero__terminal-title">terminal — bash</span>
-          </div>
-          <div class="hero__terminal-body">
-            <div class="hero__terminal-line">
-              <span class="hero__terminal-prompt" aria-hidden="true">cyb3rvigil@kali:~$</span>
-              <span class="hero__terminal-output" id="terminalOutput" aria-live="polite"></span>
-              <span class="hero__terminal-cursor" id="terminalCursor" aria-hidden="true">▋</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTAs -->
         <div class="hero__ctas">
-          <a href="#projects" class="btn btn--primary hero__cta">
-            <span class="btn__text">View My Work</span>
-            <span class="btn__icon" aria-hidden="true">↓</span>
+          <a href="#projects" class="btn btn--em magnetic" aria-label="View my work">
+            View My Work
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="https://github.com/Cyb3rVigil" class="btn btn--ghost hero__cta" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
-            <span class="btn__icon btn__icon--gh" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            </span>
+          <a href="https://github.com/Cyb3rVigil" class="btn btn--glass magnetic" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
+          <a href="#terminal" class="btn btn--outline magnetic" aria-label="Open terminal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Terminal
+          </a>
         </div>
 
-        <!-- Scroll indicator -->
         <div class="hero__scroll" aria-hidden="true">
-          <div class="hero__scroll-line"></div>
-          <span class="hero__scroll-text">scroll</span>
+          <div class="hero__scroll-mouse">
+            <span class="hero__scroll-wheel"></span>
+          </div>
+          <span class="hero__scroll-lbl">scroll</span>
         </div>
 
       </div>
+
+      <div class="hero__bar" aria-label="Quick statistics">
+        <div class="hero__stat">
+          <span class="hero__stat-n">3</span>
+          <span class="hero__stat-l">Months Active</span>
+        </div>
+        <div class="hero__barsep" aria-hidden="true"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-n">11</span>
+          <span class="hero__stat-l">Security Tools</span>
+        </div>
+        <div class="hero__barsep" aria-hidden="true"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-n">3</span>
+          <span class="hero__stat-l">Lab Projects</span>
+        </div>
+        <div class="hero__barsep" aria-hidden="true"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-n">2</span>
+          <span class="hero__stat-l">Certifications</span>
+        </div>
+      </div>
     </section>
 
-    <!-- ============================================================
-         ABOUT SECTION
-    ============================================================ -->
-    <section class="about section" id="about" aria-labelledby="about-heading">
-      <div class="section__inner">
-
-        <div class="section__label" aria-hidden="true">
-          <span class="section__label-number">[ 01 ]</span>
-          <span class="section__label-line"></span>
-        </div>
-
-        <h2 class="section__heading" id="about-heading">Who I Am</h2>
+    <!-- ════════════════════════════════════════ ABOUT -->
+    <section class="section about" id="about" aria-labelledby="about-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 01 ] &nbsp;// WHO_AM_I</p>
+        <h2 class="sec-h" id="about-h">Who I Am</h2>
 
         <div class="about__grid">
-          <div class="about__content">
-            <p class="about__bio">
-              I'm a first-year B.E. Computer Science student with a relentless focus on cybersecurity, offensive security, and ethical hacking. My entry into this field wasn't structured — it was driven by a deep, persistent curiosity about how systems break, how vulnerabilities surface, and how skilled professionals think like adversaries to protect what matters.
+          <div class="about__copy">
+            <p class="about__p">
+              I'm a first-year B.E. Computer Science student driven by a relentless focus on cybersecurity, offensive security, and ethical hacking. My entry into this field wasn't structured — it was fuelled by deep, persistent curiosity about how systems break and how skilled professionals think like adversaries to protect what matters.
             </p>
-            <p class="about__bio">
-              Surface-level technology never satisfied me. I've always been compelled to understand what happens underneath — how networks communicate, how web applications fail, how authentication logic can be subverted, and how OSINT transforms publicly available data into actionable intelligence. That obsession led me to hands-on practice over passive learning.
+            <p class="about__p">
+              Surface-level technology never satisfied me. I've always been compelled to understand what lies underneath — how networks communicate, how web applications fail, how authentication logic can be subverted, and how OSINT transforms public data into actionable intelligence.
             </p>
-            <p class="about__bio">
-              What drives me is deceptively simple: whenever I encounter someone more skilled, more knowledgeable, or more technically precise than me, I don't want to stay behind. That pressure is fuel. I am at the beginning of a long journey — and I'm committed to building the kind of expertise where the work speaks louder than any title.
+            <p class="about__p">
+              What drives me is deceptively simple: whenever I encounter someone more skilled or technically precise, I don't want to stay behind. That pressure is fuel. I'm committed to building expertise where the work speaks louder than any title.
             </p>
-
-            <div class="about__meta">
-              <span class="about__meta-item">
-                <span class="about__meta-icon" aria-hidden="true">◈</span>
-                B.E. Computer Science Engineering · 2nd Semester
+            <div class="about__badges">
+              <span class="badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                B.E. CSE · 2nd Semester
               </span>
-              <span class="about__meta-item">
-                <span class="about__meta-icon" aria-hidden="true">◈</span>
-                Offensive Security · Security Research Focus
+              <span class="badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Offensive Security Focus
+              </span>
+              <span class="badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Kali Linux Daily Driver
               </span>
             </div>
           </div>
 
           <div class="about__stats" aria-label="Key statistics">
-            <div class="about__stat-card">
-              <span class="about__stat-number">3</span>
-              <span class="about__stat-label">Months Active</span>
+            <div class="stat-card glass" data-count="3" aria-label="3 months active">
+              <span class="stat-card__n">0</span>
+              <span class="stat-card__l">Months Active</span>
             </div>
-            <div class="about__stat-card">
-              <span class="about__stat-number">3</span>
-              <span class="about__stat-label">Lab Projects</span>
+            <div class="stat-card glass" data-count="3" aria-label="3 lab projects">
+              <span class="stat-card__n">0</span>
+              <span class="stat-card__l">Lab Projects</span>
             </div>
-            <div class="about__stat-card">
-              <span class="about__stat-number">11</span>
-              <span class="about__stat-label">Tools in Arsenal</span>
+            <div class="stat-card glass" data-count="11" aria-label="11 tools mastered">
+              <span class="stat-card__n">0</span>
+              <span class="stat-card__l">Tools Mastered</span>
             </div>
-            <div class="about__stat-card">
-              <span class="about__stat-number">2</span>
-              <span class="about__stat-label">Certifications</span>
+            <div class="stat-card glass" data-count="2" aria-label="2 certifications">
+              <span class="stat-card__n">0</span>
+              <span class="stat-card__l">Certifications</span>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ============================================================
-         SKILLS SECTION
-    ============================================================ -->
-    <section class="skills section section--alt" id="skills" aria-labelledby="skills-heading">
-      <div class="section__inner">
-
-        <div class="section__label" aria-hidden="true">
-          <span class="section__label-number">[ 02 ]</span>
-          <span class="section__label-line"></span>
-        </div>
-
-        <h2 class="section__heading" id="skills-heading">Technical Arsenal</h2>
+    <!-- ════════════════════════════════════════ SKILLS -->
+    <section class="section section--alt skills" id="skills" aria-labelledby="skills-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 02 ] &nbsp;// TECHNICAL_ARSENAL</p>
+        <h2 class="sec-h" id="skills-h">Technical Arsenal</h2>
 
         <div class="skills__grid">
+          <div class="skills__col">
+            <h3 class="skills__sub">Core Competencies</h3>
+            <div class="skill-list">
 
-          <!-- Core Competencies -->
-          <div class="skills__column">
-            <h3 class="skills__column-title">Core Competencies</h3>
-            <ul class="skills__list" role="list">
+              <div class="skill">
+                <div class="skill__meta">
+                  <span class="skill__name">OSINT &amp; Recon Thinking</span>
+                  <span class="skill__lv lv--adv">Advanced</span>
+                </div>
+                <div class="skill__track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="OSINT skill 85%">
+                  <div class="skill__fill" data-w="85"></div>
+                </div>
+              </div>
 
-              <li class="skills__item">
-                <div class="skills__item-header">
-                  <span class="skills__item-name">OSINT & Recon Thinking</span>
-                  <span class="skills__item-level">Advanced</span>
+              <div class="skill">
+                <div class="skill__meta">
+                  <span class="skill__name">Social Engineering Awareness</span>
+                  <span class="skill__lv lv--adv">Advanced</span>
                 </div>
-                <div class="skills__bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="OSINT & Recon Thinking skill level: 85%">
-                  <div class="skills__bar-fill" data-width="85"></div>
+                <div class="skill__track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Social engineering 80%">
+                  <div class="skill__fill" data-w="80"></div>
                 </div>
-              </li>
+              </div>
 
-              <li class="skills__item">
-                <div class="skills__item-header">
-                  <span class="skills__item-name">Social Engineering Awareness</span>
-                  <span class="skills__item-level">Advanced</span>
+              <div class="skill">
+                <div class="skill__meta">
+                  <span class="skill__name">Attack Surface Reconnaissance</span>
+                  <span class="skill__lv lv--pro">Proficient</span>
                 </div>
-                <div class="skills__bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Social Engineering skill level: 80%">
-                  <div class="skills__bar-fill" data-width="80"></div>
+                <div class="skill__track" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Attack surface recon 75%">
+                  <div class="skill__fill" data-w="75"></div>
                 </div>
-              </li>
+              </div>
 
-              <li class="skills__item">
-                <div class="skills__item-header">
-                  <span class="skills__item-name">Attack Surface Reconnaissance</span>
-                  <span class="skills__item-level">Proficient</span>
+              <div class="skill">
+                <div class="skill__meta">
+                  <span class="skill__name">Web Application Security</span>
+                  <span class="skill__lv lv--pro">Proficient</span>
                 </div>
-                <div class="skills__bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Attack Surface Recon skill level: 75%">
-                  <div class="skills__bar-fill" data-width="75"></div>
+                <div class="skill__track" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Web app security 72%">
+                  <div class="skill__fill" data-w="72"></div>
                 </div>
-              </li>
+              </div>
 
-              <li class="skills__item">
-                <div class="skills__item-header">
-                  <span class="skills__item-name">Cybersecurity Branding & Positioning</span>
-                  <span class="skills__item-level">Proficient</span>
+              <div class="skill">
+                <div class="skill__meta">
+                  <span class="skill__name">Network Reconnaissance</span>
+                  <span class="skill__lv lv--pro">Proficient</span>
                 </div>
-                <div class="skills__bar" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" aria-label="Cybersecurity Branding skill level: 78%">
-                  <div class="skills__bar-fill" data-width="78"></div>
+                <div class="skill__track" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Network recon 70%">
+                  <div class="skill__fill" data-w="70"></div>
                 </div>
-              </li>
+              </div>
 
-              <li class="skills__item">
-                <div class="skills__item-header">
-                  <span class="skills__item-name">Prompt Engineering & Technical Research</span>
-                  <span class="skills__item-level">Proficient</span>
-                </div>
-                <div class="skills__bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Prompt Engineering skill level: 72%">
-                  <div class="skills__bar-fill" data-width="72"></div>
-                </div>
-              </li>
-
-            </ul>
+            </div>
           </div>
 
-          <!-- Tools Grid -->
-          <div class="skills__column">
-            <h3 class="skills__column-title">Tools & Technologies</h3>
-            <ul class="skills__tools" role="list" aria-label="Security tools">
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Kali Linux
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Nmap
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Burp Suite
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Wireshark
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Metasploit
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Maltego
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Shodan
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Gobuster
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Ettercap
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Airgeddon
-              </li>
-              <li class="skills__tool-tag">
-                <span class="skills__tool-dot" aria-hidden="true"></span>Aircrack-ng
-              </li>
+          <div class="skills__col">
+            <h3 class="skills__sub">Tools &amp; Technologies</h3>
+            <ul class="tools-wrap" role="list" aria-label="Security tools">
+              <li class="ttag">Kali Linux</li>
+              <li class="ttag">Nmap</li>
+              <li class="ttag">Burp Suite</li>
+              <li class="ttag">Wireshark</li>
+              <li class="ttag">Metasploit</li>
+              <li class="ttag">Maltego</li>
+              <li class="ttag">Shodan</li>
+              <li class="ttag">Gobuster</li>
+              <li class="ttag">Ettercap</li>
+              <li class="ttag">Airgeddon</li>
+              <li class="ttag">Aircrack-ng</li>
             </ul>
 
-            <div class="skills__domain-tags" aria-label="Security domains">
-              <h3 class="skills__column-title skills__column-title--spaced">Security Domains</h3>
-              <ul class="skills__domains" role="list">
-                <li class="skills__domain">Web Application Security</li>
-                <li class="skills__domain">Network Reconnaissance</li>
-                <li class="skills__domain">OSINT & Intelligence</li>
-                <li class="skills__domain">Wireless Security</li>
-                <li class="skills__domain">Vulnerability Assessment</li>
-                <li class="skills__domain">Penetration Testing</li>
-              </ul>
+            <h3 class="skills__sub skills__sub--mt">Security Domains</h3>
+            <ul class="domains-wrap" role="list" aria-label="Security domains">
+              <li>Web Application Security</li>
+              <li>Network Reconnaissance</li>
+              <li>OSINT &amp; Intelligence</li>
+              <li>Wireless Security</li>
+              <li>Vulnerability Assessment</li>
+              <li>Penetration Testing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ TERMINAL -->
+    <section class="section term-sec" id="terminal" aria-labelledby="term-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 03 ] &nbsp;// COMMAND_INTERFACE</p>
+        <h2 class="sec-h" id="term-h">Command Interface</h2>
+        <p class="sec-sub">Explore my profile interactively. Type <code>help</code> for all commands.</p>
+
+        <div class="iterm glass" id="iterm" role="region" aria-label="Interactive terminal">
+          <div class="iterm__bar">
+            <div class="iterm__dots" aria-hidden="true">
+              <span class="iterm__dot iterm__dot--r"></span>
+              <span class="iterm__dot iterm__dot--y"></span>
+              <span class="iterm__dot iterm__dot--g"></span>
+            </div>
+            <span class="iterm__title">cyb3rvigil@kali — bash — 80×24</span>
+            <button id="itermClear" class="iterm__clr" title="Clear terminal (Ctrl+L)" aria-label="Clear terminal">⌘K</button>
+          </div>
+          <div class="iterm__out" id="itermOutput" aria-live="polite" aria-atomic="false"></div>
+          <div class="iterm__row">
+            <span class="iterm__ps1" aria-hidden="true">cyb3rvigil@kali:~$&nbsp;</span>
+            <input
+              type="text"
+              id="itermInput"
+              class="iterm__in"
+              placeholder="enter command…"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Terminal command input"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ PROJECTS -->
+    <section class="section section--alt projects" id="projects" aria-labelledby="proj-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 04 ] &nbsp;// PROOF_OF_WORK</p>
+        <h2 class="sec-h" id="proj-h">Proof of Work</h2>
+
+        <div class="proj-grid">
+
+          <article class="pcard glass tilt-card" aria-labelledby="p1">
+            <div class="pcard__glow" aria-hidden="true"></div>
+            <div class="pcard__top">
+              <span class="pcard__badge pb--web">WEB · ASSESSMENT</span>
+              <span class="pcard__num" aria-hidden="true">01</span>
+            </div>
+            <h3 class="pcard__title" id="p1">Web Application Security Assessment</h3>
+            <p class="pcard__scope">Lab Environment · OWASP Methodology</p>
+            <p class="pcard__desc">
+              Structured security assessment on intentionally vulnerable web applications. Documented attack paths, exploitation chains, and remediation across five vulnerability classes.
+            </p>
+            <div class="pcard__finds">
+              <span>SQL Injection</span>
+              <span>XSS</span>
+              <span>Auth Flaws</span>
+              <span>Directory Traversal</span>
+              <span>Session Mgmt</span>
+            </div>
+            <footer class="pcard__foot">
+              <div class="pcard__tools">
+                <span>Burp Suite</span><span>OWASP ZAP</span><span>Nmap</span><span>DVWA · Juice Shop</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="pcard glass tilt-card" aria-labelledby="p2">
+            <div class="pcard__glow" aria-hidden="true"></div>
+            <div class="pcard__top">
+              <span class="pcard__badge pb--net">NETWORK · RECON</span>
+              <span class="pcard__num" aria-hidden="true">02</span>
+            </div>
+            <h3 class="pcard__title" id="p2">Network Reconnaissance &amp; Enumeration</h3>
+            <p class="pcard__scope">Virtual Lab · TCP/UDP Methodology</p>
+            <p class="pcard__desc">
+              Network scanning and service enumeration across virtual targets. Identified exposed services, OS fingerprints, and attack surfaces — mapping how misconfigurations create real risk.
+            </p>
+            <div class="pcard__finds">
+              <span>Port Discovery</span>
+              <span>Service Enum</span>
+              <span>OS Fingerprinting</span>
+              <span>Surface Mapping</span>
+            </div>
+            <footer class="pcard__foot">
+              <div class="pcard__tools">
+                <span>Nmap</span><span>Wireshark</span><span>Netcat</span><span>Kali Linux</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="pcard glass tilt-card" aria-labelledby="p3">
+            <div class="pcard__glow" aria-hidden="true"></div>
+            <div class="pcard__top">
+              <span class="pcard__badge pb--osint">OSINT · INTEL</span>
+              <span class="pcard__num" aria-hidden="true">03</span>
+            </div>
+            <h3 class="pcard__title" id="p3">OSINT &amp; Digital Footprint Investigation</h3>
+            <p class="pcard__scope">Open-Source Intelligence · Passive Recon</p>
+            <p class="pcard__desc">
+              Intelligence investigations using publicly available data to analyse digital footprints, exposed metadata, and online presence. Correlated fragmented data into coherent intelligence profiles.
+            </p>
+            <div class="pcard__finds">
+              <span>Subdomain Mapping</span>
+              <span>Email Intel</span>
+              <span>Username Correlation</span>
+              <span>Metadata Extract</span>
+            </div>
+            <footer class="pcard__foot">
+              <div class="pcard__tools">
+                <span>theHarvester</span><span>Maltego</span><span>Recon-ng</span><span>Sherlock</span>
+              </div>
+            </footer>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ JOURNEY -->
+    <section class="section journey" id="journey" aria-labelledby="journey-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 05 ] &nbsp;// THE_JOURNEY</p>
+        <h2 class="sec-h" id="journey-h">The Journey</h2>
+        <p class="sec-sub">From curious student to aspiring red team operator — every stage deliberate and earned.</p>
+
+        <div class="timeline" role="list">
+
+          <div class="tl-item tl-item--now" role="listitem">
+            <div class="tl-marker" aria-hidden="true">
+              <span class="tl-ring"></span>
+              <span class="tl-dot"></span>
+            </div>
+            <div class="tl-card glass">
+              <span class="tl-badge tl-badge--now">NOW</span>
+              <h3 class="tl-title">Cybersecurity Student</h3>
+              <p class="tl-role">B.E. Computer Science · 1st Year</p>
+              <p class="tl-desc">Building foundational knowledge in offensive security, ethical hacking, and OSINT. Practicing on HackTheBox, TryHackMe, and CTF platforms to develop real-world skills.</p>
+              <div class="tl-tags"><span>OSINT</span><span>Ethical Hacking</span><span>CTF</span><span>Lab Work</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item" role="listitem">
+            <div class="tl-marker" aria-hidden="true">
+              <span class="tl-ring"></span>
+              <span class="tl-dot"></span>
+            </div>
+            <div class="tl-card glass">
+              <span class="tl-badge tl-badge--next">NEXT</span>
+              <h3 class="tl-title">Security Researcher</h3>
+              <p class="tl-role">Bug Bounty · CVE Research · 2025</p>
+              <p class="tl-desc">Targeting responsible disclosure, first CVEs, and bug bounty platforms. Building a public track record through documented vulnerability research and published writeups.</p>
+              <div class="tl-tags"><span>Bug Bounty</span><span>CVEs</span><span>Web AppSec</span><span>Writeups</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item" role="listitem">
+            <div class="tl-marker" aria-hidden="true">
+              <span class="tl-ring"></span>
+              <span class="tl-dot"></span>
+            </div>
+            <div class="tl-card glass">
+              <span class="tl-badge tl-badge--fut">FUTURE</span>
+              <h3 class="tl-title">Penetration Tester</h3>
+              <p class="tl-role">eJPT · OSCP Pathway · 2026</p>
+              <p class="tl-desc">Earning industry certifications and conducting professional engagements. OSCP is the primary milestone — a credential that proves real-world offensive security capability.</p>
+              <div class="tl-tags"><span>eJPT</span><span>OSCP</span><span>Pentest</span><span>Reporting</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item" role="listitem">
+            <div class="tl-marker" aria-hidden="true">
+              <span class="tl-ring"></span>
+              <span class="tl-dot"></span>
+            </div>
+            <div class="tl-card glass">
+              <span class="tl-badge tl-badge--vis">VISION</span>
+              <h3 class="tl-title">Red Team Operator</h3>
+              <p class="tl-role">Advanced Persistent Threat Simulation · 2028</p>
+              <p class="tl-desc">Leading adversarial simulation engagements — full kill-chain TTPs, custom C2 infrastructure, and advanced lateral movement. The operator behind the breach simulation.</p>
+              <div class="tl-tags"><span>Red Team</span><span>APT Sim</span><span>C2 Dev</span><span>TTPs</span></div>
             </div>
           </div>
 
@@ -355,258 +510,115 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         PROJECTS SECTION
-    ============================================================ -->
-    <section class="projects section" id="projects" aria-labelledby="projects-heading">
-      <div class="section__inner">
+    <!-- ════════════════════════════════════════ CERTS -->
+    <section class="section section--alt certs-sec" id="certifications" aria-labelledby="certs-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 06 ] &nbsp;// CREDENTIALS</p>
+        <h2 class="sec-h" id="certs-h">Credentials</h2>
 
-        <div class="section__label" aria-hidden="true">
-          <span class="section__label-number">[ 03 ]</span>
-          <span class="section__label-line"></span>
-        </div>
+        <div class="certs-grid">
 
-        <h2 class="section__heading" id="projects-heading">Proof of Work</h2>
-
-        <div class="projects__grid">
-
-          <!-- Project 1 -->
-          <article class="project-card" aria-labelledby="project-1-title">
-            <div class="project-card__header">
-              <div class="project-card__badge project-card__badge--web">
-                <span>WEB</span>
-                <span class="project-card__badge-sep">·</span>
-                <span>ASSESSMENT</span>
-              </div>
-              <div class="project-card__number" aria-hidden="true">01</div>
+          <article class="ccard glass tilt-card" aria-labelledby="c1">
+            <div class="ccard__glow" aria-hidden="true"></div>
+            <div class="ccard__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-
-            <h3 class="project-card__title" id="project-1-title">
-              Web Application Security Assessment
-            </h3>
-            <p class="project-card__scope">Lab Environment · OWASP Methodology</p>
-
-            <p class="project-card__description">
-              Performed a structured security assessment on intentionally vulnerable web applications. Documented attack paths, exploitation chains, and remediation recommendations across five vulnerability classes.
-            </p>
-
-            <div class="project-card__findings">
-              <span class="project-card__finding">SQL Injection</span>
-              <span class="project-card__finding">XSS</span>
-              <span class="project-card__finding">Auth Flaws</span>
-              <span class="project-card__finding">Directory Traversal</span>
-              <span class="project-card__finding">Session Mgmt</span>
-            </div>
-
-            <div class="project-card__footer">
-              <div class="project-card__tools">
-                <span class="project-card__tool">Burp Suite</span>
-                <span class="project-card__tool">OWASP ZAP</span>
-                <span class="project-card__tool">Nmap</span>
-                <span class="project-card__tool">Kali Linux</span>
-                <span class="project-card__tool">DVWA · Juice Shop</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="project-card" aria-labelledby="project-2-title">
-            <div class="project-card__header">
-              <div class="project-card__badge project-card__badge--network">
-                <span>NETWORK</span>
-                <span class="project-card__badge-sep">·</span>
-                <span>RECON</span>
-              </div>
-              <div class="project-card__number" aria-hidden="true">02</div>
-            </div>
-
-            <h3 class="project-card__title" id="project-2-title">
-              Network Reconnaissance & Enumeration
-            </h3>
-            <p class="project-card__scope">Virtual Lab · TCP/UDP Methodology</p>
-
-            <p class="project-card__description">
-              Performed network scanning and service enumeration across virtual lab targets. Identified exposed services, OS fingerprints, and attack surfaces — mapping how misconfigured services create real security risk.
-            </p>
-
-            <div class="project-card__findings">
-              <span class="project-card__finding">Open Port Discovery</span>
-              <span class="project-card__finding">Service Enumeration</span>
-              <span class="project-card__finding">OS Fingerprinting</span>
-              <span class="project-card__finding">Attack Surface Mapping</span>
-            </div>
-
-            <div class="project-card__footer">
-              <div class="project-card__tools">
-                <span class="project-card__tool">Nmap</span>
-                <span class="project-card__tool">Wireshark</span>
-                <span class="project-card__tool">Netcat</span>
-                <span class="project-card__tool">Kali Linux</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="project-card" aria-labelledby="project-3-title">
-            <div class="project-card__header">
-              <div class="project-card__badge project-card__badge--osint">
-                <span>OSINT</span>
-                <span class="project-card__badge-sep">·</span>
-                <span>INTEL</span>
-              </div>
-              <div class="project-card__number" aria-hidden="true">03</div>
-            </div>
-
-            <h3 class="project-card__title" id="project-3-title">
-              OSINT & Digital Footprint Investigation
-            </h3>
-            <p class="project-card__scope">Open-Source Intelligence · Passive Recon</p>
-
-            <p class="project-card__description">
-              Conducted open-source intelligence investigations using publicly available data to analyse digital footprints, exposed metadata, and online presence. Developed proficiency in correlation of fragmented public data into cohesive intelligence profiles.
-            </p>
-
-            <div class="project-card__findings">
-              <span class="project-card__finding">Subdomain Mapping</span>
-              <span class="project-card__finding">Email Intelligence</span>
-              <span class="project-card__finding">Username Correlation</span>
-              <span class="project-card__finding">Metadata Extraction</span>
-            </div>
-
-            <div class="project-card__footer">
-              <div class="project-card__tools">
-                <span class="project-card__tool">theHarvester</span>
-                <span class="project-card__tool">Maltego</span>
-                <span class="project-card__tool">Recon-ng</span>
-                <span class="project-card__tool">Sherlock</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         CERTIFICATIONS SECTION
-    ============================================================ -->
-    <section class="certifications section section--alt" id="certifications" aria-labelledby="certs-heading">
-      <div class="section__inner">
-
-        <div class="section__label" aria-hidden="true">
-          <span class="section__label-number">[ 04 ]</span>
-          <span class="section__label-line"></span>
-        </div>
-
-        <h2 class="section__heading" id="certs-heading">Credentials</h2>
-
-        <div class="certs__grid">
-
-          <article class="cert-card" aria-labelledby="cert-1-title">
-            <div class="cert-card__icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <div class="cert-card__content">
-              <h3 class="cert-card__title" id="cert-1-title">Ethical Hacking</h3>
-              <p class="cert-card__issuer">Tutedude · Certified</p>
-              <a
-                href="https://upskill.tutedude.com/certificate/TD-ABHI-EH-1205"
-                class="cert-card__verify"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Verify Ethical Hacking certificate from Tutedude"
-              >
+            <div class="ccard__body">
+              <div class="ccard__vtag">VERIFIED</div>
+              <h3 class="ccard__title" id="c1">Ethical Hacking</h3>
+              <p class="ccard__issuer">Tutedude · Certified</p>
+              <a href="https://upskill.tutedude.com/certificate/TD-ABHI-EH-1205" class="ccard__verify" target="_blank" rel="noopener noreferrer" aria-label="Verify Ethical Hacking certificate">
                 Verify Certificate ↗
               </a>
             </div>
-            <div class="cert-card__badge" aria-hidden="true">VERIFIED</div>
           </article>
 
-          <article class="cert-card" aria-labelledby="cert-2-title">
-            <div class="cert-card__icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
+          <article class="ccard glass tilt-card" aria-labelledby="c2">
+            <div class="ccard__glow" aria-hidden="true"></div>
+            <div class="ccard__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             </div>
-            <div class="cert-card__content">
-              <h3 class="cert-card__title" id="cert-2-title">Cybersecurity</h3>
-              <p class="cert-card__issuer">Tutedude · Certified</p>
-              <a
-                href="https://upskill.tutedude.com/certificate/TD-ABHI-CS-1135"
-                class="cert-card__verify"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Verify Cybersecurity certificate from Tutedude"
-              >
+            <div class="ccard__body">
+              <div class="ccard__vtag">VERIFIED</div>
+              <h3 class="ccard__title" id="c2">Cybersecurity</h3>
+              <p class="ccard__issuer">Tutedude · Certified</p>
+              <a href="https://upskill.tutedude.com/certificate/TD-ABHI-CS-1135" class="ccard__verify" target="_blank" rel="noopener noreferrer" aria-label="Verify Cybersecurity certificate">
                 Verify Certificate ↗
               </a>
             </div>
-            <div class="cert-card__badge" aria-hidden="true">VERIFIED</div>
+          </article>
+
+          <article class="ccard ccard--coming glass" aria-labelledby="c3">
+            <div class="ccard__icon ccard__icon--dim" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="ccard__body">
+              <div class="ccard__vtag ccard__vtag--up">UPCOMING</div>
+              <h3 class="ccard__title" id="c3">eJPT v2</h3>
+              <p class="ccard__issuer">INE Security · In Progress</p>
+              <div class="ccard__prog" aria-label="Progress indicator"><div class="ccard__prog-fill"></div></div>
+            </div>
           </article>
 
         </div>
-
       </div>
     </section>
 
-    <!-- ============================================================
-         CONTACT SECTION
-    ============================================================ -->
-    <section class="contact section" id="contact" aria-labelledby="contact-heading">
-      <div class="section__inner">
+    <!-- ════════════════════════════════════════ CONTACT -->
+    <section class="section contact-sec" id="contact" aria-labelledby="contact-h">
+      <div class="wrap">
+        <p class="sec-tag" aria-hidden="true">[ 07 ] &nbsp;// ESTABLISH_CONTACT</p>
+        <h2 class="sec-h" id="contact-h">Establish Contact</h2>
 
-        <div class="section__label" aria-hidden="true">
-          <span class="section__label-number">[ 05 ]</span>
-          <span class="section__label-line"></span>
-        </div>
+        <div class="contact-grid">
+          <div class="contact-left">
+            <p class="contact-hl">Have a security challenge, collaboration opportunity, or just want to connect?</p>
+            <p class="contact-sub">Open to security internships, bug bounty collabs, CTF teams, and mentorship opportunities.</p>
 
-        <h2 class="section__heading" id="contact-heading">Establish Contact</h2>
+            <div class="contact-links">
+              <a href="mailto:topper.rei@gmail.com" class="clink magnetic" aria-label="Send email">
+                <span class="clink__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                <div>
+                  <span class="clink__lbl">Email</span>
+                  <span class="clink__val">topper.rei@gmail.com</span>
+                </div>
+              </a>
 
-        <div class="contact__inner">
-          <p class="contact__tagline">
-            Have a security challenge, a collaboration opportunity, or just want to connect?
-            <br />Let's talk.
-          </p>
+              <a href="https://www.linkedin.com/in/cyb3rvigil" class="clink magnetic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                <span class="clink__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                </span>
+                <div>
+                  <span class="clink__lbl">LinkedIn</span>
+                  <span class="clink__val">in/cyb3rvigil</span>
+                </div>
+              </a>
 
-          <div class="contact__actions">
-            <a
-              href="mailto:topper.rei@gmail.com"
-              class="btn btn--primary btn--large contact__btn"
-              aria-label="Send email to Abhinav Satsangi"
-            >
-              <span class="btn__icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </span>
-              topper.rei@gmail.com
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/cyb3rvigil"
-              class="btn btn--ghost btn--large contact__btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Connect on LinkedIn"
-            >
-              <span class="btn__icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
-                  <circle cx="4" cy="4" r="2"/>
-                </svg>
-              </span>
-              LinkedIn
-            </a>
+              <a href="https://github.com/Cyb3rVigil" class="clink magnetic" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                <span class="clink__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </span>
+                <div>
+                  <span class="clink__lbl">GitHub</span>
+                  <span class="clink__val">@Cyb3rVigil</span>
+                </div>
+              </a>
+            </div>
           </div>
 
-          <p class="contact__note">
-            <span class="contact__note-prefix" aria-hidden="true">$</span>
-            Typically responds within 24 hours.
-          </p>
+          <div class="contact-right">
+            <div class="contact-cta glass">
+              <div class="contact-cta__icon" aria-hidden="true">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              </div>
+              <h3 class="contact-cta__title">Let's Work Together</h3>
+              <p class="contact-cta__desc">Ready to discuss security challenges, internship opportunities, or collaborative research.</p>
+              <a href="mailto:topper.rei@gmail.com" class="btn btn--em btn--full magnetic">Send Message ↗</a>
+              <p class="contact-cta__note"><span aria-hidden="true">$</span> Typically responds within 24 hours</p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -614,47 +626,25 @@
 
   </main>
 
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
+  <!-- ░░░ FOOTER ░░░ -->
   <footer class="footer" role="contentinfo">
-    <div class="footer__inner">
-
+    <div class="footer__in wrap">
       <div class="footer__left">
-        <span class="footer__alias">Cyb3r.v1g!l</span>
+        <span class="footer__brand">[ Cyb3r.v1g!l ]</span>
         <span class="footer__copy">© <span id="footerYear"></span> Abhinav Satsangi. All rights reserved.</span>
       </div>
-
       <div class="footer__right">
-        <a
-          href="https://github.com/Cyb3rVigil"
-          class="footer__link"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub profile"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a
-          href="https://www.linkedin.com/in/cyb3rvigil"
-          class="footer__link"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn profile"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-          LinkedIn
-        </a>
+        <a href="https://github.com/Cyb3rVigil" class="footer__a" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/cyb3rvigil" class="footer__a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="mailto:topper.rei@gmail.com" class="footer__a" aria-label="Email">Email</a>
       </div>
-
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- ░░░ EXTERNAL SCRIPTS ░░░ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </body>
 </html>
