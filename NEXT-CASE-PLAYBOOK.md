@@ -20,9 +20,9 @@ Then I will collect my genuine notes and permitted evidence; draft the case with
 
 ## 3. Named next piece of work
 
-**Next case study:** *TryHackMe Jr Penetration Tester — Web Request Analysis in an Authorized Lab.*
+**Next piece of work:** Complete TryHackMe's [Burp Suite: The Basics](https://tryhackme.com/room/burpsuitebasics) room as part of my Jr Penetration Tester learning path, then publish a case study titled *Burp Suite Web Request/Response Analysis*.
 
-I will use the next accessible web-security lab in my current Jr Penetration Tester path and focus on understanding the request/response flow. I will record the lab objective, how I inspected the requests using the tools permitted by that lab, what I observed, the verified outcome, and the security lessons. A possible room to use, if my account has access, is [Burp Suite: The Basics](https://tryhackme.com/room/burpsuitebasics); otherwise, I will select an accessible room from my enrolled path.
+I will focus on understanding HTTP request/response flow within the authorized room. I will record the lab objective, how I inspected requests using the tools permitted by the lab, my actual observations, the verified outcome, and the security lessons. If this room is not accessible on my account, I will use an accessible equivalent lab in the same learning path and update the case title accordingly.
 
 This is planned work, not a claim that the lab or case study is already complete. I will publish the case only after performing the lab and checking the facts in my notes.
 
