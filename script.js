@@ -24,7 +24,11 @@ function initLoader() {
   const fillEl     = document.getElementById('loaderFill');
   const pctEl      = document.getElementById('loaderPct');
 
-  if (!loaderEl) { onLoaderDone(); return; }
+  if (!loaderEl || !textEl || !progressEl || !fillEl || !pctEl) {
+    if (loaderEl) loaderEl.classList.add('loader--done');
+    onLoaderDone();
+    return;
+  }
 
   // Pre-hide hero elements so they reveal via GSAP after loader
   const heroReveal = [
@@ -602,7 +606,7 @@ ${['Kali Linux','Nmap','Burp Suite','Wireshark','Metasploit',
 <div class="t-line"><span class="t-em">Email:    </span>official.cyb3rvigil@gmail.com</div>
 <div class="t-line"><span class="t-em">LinkedIn: </span>linkedin.com/in/cyb3rvigil</div>
 <div class="t-line"><span class="t-em">GitHub:   </span>github.com/Cyb3rVigil</div>
-<div class="t-line t-dim" style="margin-top:6px">Typically responds within 24 hours.</div>
+<div class="t-line t-dim" style="margin-top:6px">Use the contact links below to get in touch.</div>
 </div>`,
 
     status: () => `<div class="t-block">
