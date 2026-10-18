@@ -1,0 +1,68 @@
+name: static-checks
+
+on:
+  pull_request:
+  push:
+    branches: ["main", "audit/recheck-batch-1"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-static-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check portfolio JavaScript syntax
+        run: node --check script.js
+
+      - name: Validate HTML IDs, anchors, and key contact links
+        run: |
+          python - <<'PY'
+          from collections import Counter
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          class AuditParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.ids = []
+                  self.anchors = []
+                  self.hrefs = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if attrs.get("id"):
+                      self.ids.append(attrs["id"])
+                  if tag == "a" and attrs.get("href", "").startswith("#"):
+                      self.anchors.append(attrs["href"][1:])
+                  if attrs.get("href"):
+                      self.hrefs.append(attrs["href"])
+
+          source = Path("index.html").read_text(encoding="utf-8")
+          parser = AuditParser()
+          parser.feed(source)
+          duplicates = [item for item, count in Counter(parser.ids).items() if count > 1]
+          if duplicates:
+              raise SystemExit("Duplicate HTML ids: " + ", ".join(duplicates))
+          missing = sorted(set(parser.anchors) - set(parser.ids))
+          if missing:
+              raise SystemExit("Broken internal anchors: " + ", ".join(missing))
+          if "official.cyb3rvigil@gmail.com" not in source:
+              raise SystemExit("Expected contact email not found")
+          if "topper.rei@gmail.com" in source:
+              raise SystemExit("Stale contact email found")
+          for required in ("https://github.com/Cyb3rVigil", "https://linkedin.com/in/cyb3rv1gil",
+                           "https://x.com/Cyb3rV1gil", "https://bugcrowd.com/h/Cyb3rv1gil",
+                           "https://tryhackme.com/p/Cyb3rV1gil"):
+              if required not in parser.hrefs:
+                  raise SystemExit("Missing expected profile link: " + required)
+          if "style.css" not in source or "script.js" not in source:
+              raise SystemExit("Static CSS/JS asset reference missing")
+          print("Static HTML/contact checks passed.")
+          PY
