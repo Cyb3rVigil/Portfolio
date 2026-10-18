@@ -327,10 +327,10 @@ function startHeroTyping() {
 
   const ROLES = [
     'Cybersecurity Student',
-    'Ethical Hacker',
-    'OSINT Analyst',
-    'Security Researcher',
-    'Offensive Security Enthusiast',
+    'Aspiring Penetration Tester',
+    'Web Security Learner',
+    'Reconnaissance & Enumeration',
+    'Offensive Security Student',
     'Future Red Teamer'
   ];
 
@@ -556,7 +556,7 @@ function initTerminal() {
     whoami: () => `<div class="t-block">
 <div class="t-line"><span class="t-em">Name:     </span>Abhinav Satsangi</div>
 <div class="t-line"><span class="t-em">Alias:    </span>Cyb3r.v1g!l</div>
-<div class="t-line"><span class="t-em">Status:   </span>B.E. Computer Science · 2nd Semester</div>
+<div class="t-line"><span class="t-em">Status:   </span>B.Tech CSE · 2nd Year · 3rd Semester</div>
 <div class="t-line"><span class="t-em">Focus:    </span>Offensive Security · OSINT · Ethical Hacking</div>
 <div class="t-line"><span class="t-em">Goal:     </span>Red Team Operator</div>
 <div class="t-line"><span class="t-em">Platform: </span>Kali Linux</div>
@@ -564,16 +564,15 @@ function initTerminal() {
 </div>`,
 
     skills: () => `<div class="t-block">
-<div class="t-line t-dim" style="margin-bottom:6px">Core Competencies:</div>
-<div class="t-line">  <span class="t-em">OSINT &amp; Recon Thinking    </span> <span class="t-dim">██████████</span><span class="t-em">░</span> 85%</div>
-<div class="t-line">  <span class="t-em">Social Engineering        </span> <span class="t-dim">█████████░</span><span class="t-em">░</span> 80%</div>
-<div class="t-line">  <span class="t-em">Attack Surface Recon      </span> <span class="t-dim">████████░░</span><span class="t-em">░</span> 75%</div>
-<div class="t-line">  <span class="t-em">Web Application Security  </span> <span class="t-dim">████████░░</span><span class="t-em">░</span> 72%</div>
-<div class="t-line">  <span class="t-em">Network Reconnaissance    </span> <span class="t-dim">███████░░░</span><span class="t-em">░</span> 70%</div>
+<div class="t-line t-dim" style="margin-bottom:6px">Foundational skills in progress:</div>
+<div class="t-line">  <span class="t-em">Reconnaissance &amp; OSINT basics</span> <span class="t-dim">— learning</span></div>
+<div class="t-line">  <span class="t-em">Web application security</span> <span class="t-dim">— learning</span></div>
+<div class="t-line">  <span class="t-em">Network enumeration</span> <span class="t-dim">— learning</span></div>
+<div class="t-line t-dim" style="margin-top:6px">Experience varies by topic; no self-rated percentages.</div>
 </div>`,
 
-    tools: () => `<div class="t-block">
-<div class="t-line t-dim" style="margin-bottom:8px">Security Arsenal (11 tools):</div>
+        tools: () => `<div class="t-block">
+<div class="t-line t-dim" style="margin-bottom:8px">Tools explored for learning and practice (11 listed):</div>
 <div class="t-tools">
 ${['Kali Linux','Nmap','Burp Suite','Wireshark','Metasploit',
    'Maltego','Shodan','Gobuster','Ettercap','Airgeddon','Aircrack-ng']
@@ -582,24 +581,23 @@ ${['Kali Linux','Nmap','Burp Suite','Wireshark','Metasploit',
 </div>`,
 
     projects: () => `<div class="t-block">
-<div class="t-line t-dim" style="margin-bottom:8px">Security Lab Projects:</div>
-<div class="t-line"><span class="t-vio">01</span> <span class="t-em">Web Application Security Assessment</span>  <span class="t-dim">[OWASP · Burp Suite]</span></div>
-<div class="t-line t-dim" style="margin-left:20px;margin-bottom:8px">SQL Injection · XSS · Auth Flaws · Directory Traversal</div>
-<div class="t-line"><span class="t-vio">02</span> <span class="t-em">Network Recon &amp; Enumeration</span>         <span class="t-dim">[Nmap · Wireshark]</span></div>
-<div class="t-line t-dim" style="margin-left:20px;margin-bottom:8px">Port Discovery · OS Fingerprinting · Service Enum</div>
-<div class="t-line"><span class="t-vio">03</span> <span class="t-em">OSINT Digital Footprint Investigation</span>  <span class="t-dim">[Maltego · Sherlock]</span></div>
-<div class="t-line t-dim" style="margin-left:20px">Subdomain Map · Email Intel · Username Correlation</div>
+<div class="t-line t-dim" style="margin-bottom:8px">Learning areas — examples of current practice:</div>
+<div class="t-line"><span class="t-vio">01</span> <span class="t-em">Web Security Fundamentals</span></div>
+<div class="t-line t-dim" style="margin-left:20px;margin-bottom:8px">Introductory SQL injection · HTTP and authentication concepts</div>
+<div class="t-line"><span class="t-vio">02</span> <span class="t-em">Recon &amp; Enumeration</span> <span class="t-dim">[authorized labs]</span></div>
+<div class="t-line t-dim" style="margin-left:20px;margin-bottom:8px">Learning scan interpretation and documenting observations</div>
+<div class="t-line"><span class="t-vio">03</span> <span class="t-em">OSINT Fundamentals</span></div>
+<div class="t-line t-dim" style="margin-left:20px">Public-source concepts · scope · ethical handling</div>
 </div>`,
 
-    certifications: () => `<div class="t-block">
-<div class="t-line t-dim" style="margin-bottom:8px">Professional Credentials:</div>
-<div class="t-line"><span class="t-em">✓</span> Ethical Hacking         <span class="t-dim">· Tutedude</span>     <span class="t-dim">[VERIFIED ↗]</span></div>
-<div class="t-line"><span class="t-em">✓</span> Cybersecurity           <span class="t-dim">· Tutedude</span>     <span class="t-dim">[VERIFIED ↗]</span></div>
-<div class="t-line"><span class="t-warn">⏳</span> eJPT v2                 <span class="t-dim">· INE Security</span> <span class="t-dim">[IN PROGRESS]</span></div>
-<div class="t-line t-dim" style="margin-top:6px">Roadmap: eJPT → CEH → OSCP</div>
+        certifications: () => `<div class="t-block">
+<div class="t-line t-dim" style="margin-bottom:8px">Credentials and recognition:</div>
+<div class="t-line"><span class="t-em">✓</span> Ethical Hacking <span class="t-dim">· Tutedude</span> <span class="t-dim">[CERTIFICATE LINK]</span></div>
+<div class="t-line"><span class="t-em">✓</span> Cybersecurity <span class="t-dim">· Tutedude</span> <span class="t-dim">[CERTIFICATE LINK]</span></div>
+<div class="t-line"><span class="t-em">★</span> APCSIP 2026 <span class="t-dim">· Amroha Police — Certificate of Appreciation for Creative Content</span></div>
 </div>`,
 
-    contact: () => `<div class="t-block">
+        contact: () => `<div class="t-block">
 <div class="t-line t-dim" style="margin-bottom:8px">Contact Information:</div>
 <div class="t-line"><span class="t-em">Email:    </span>official.cyb3rvigil@gmail.com</div>
 <div class="t-line"><span class="t-em">LinkedIn: </span>linkedin.com/in/cyb3rvigil</div>
