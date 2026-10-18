@@ -71,7 +71,11 @@ function initLoader() {
 function onLoaderDone() {
   // Kick everything off
   initCursor();
-  initThreeJS();
+  try {
+    initThreeJS();
+  } catch (error) {
+    console.warn('Three.js background unavailable; continuing without it.', error);
+  }
   initHeroReveal();        // GSAP hero entrance
   initScrollAnimations();  // GSAP scroll-triggered
   initLiveClock();
@@ -597,7 +601,7 @@ ${['Kali Linux','Nmap','Burp Suite','Wireshark','Metasploit',
 
     contact: () => `<div class="t-block">
 <div class="t-line t-dim" style="margin-bottom:8px">Contact Information:</div>
-<div class="t-line"><span class="t-em">Email:    </span>topper.rei@gmail.com</div>
+<div class="t-line"><span class="t-em">Email:    </span>official.cyb3rvigil@gmail.com</div>
 <div class="t-line"><span class="t-em">LinkedIn: </span>linkedin.com/in/cyb3rvigil</div>
 <div class="t-line"><span class="t-em">GitHub:   </span>github.com/Cyb3rVigil</div>
 <div class="t-line t-dim" style="margin-top:6px">Typically responds within 24 hours.</div>
@@ -687,12 +691,6 @@ ${['Kali Linux','Nmap','Burp Suite','Wireshark','Metasploit',
     printWelcome();
     input.focus();
   });
-
-  // Focus when section scrolled into view
-  const termObs = new IntersectionObserver(entries => {
-    if (entries[0]?.isIntersecting) input.focus();
-  }, { threshold: 0.5 });
-  if (iterm) termObs.observe(iterm);
 
   printWelcome();
 }
