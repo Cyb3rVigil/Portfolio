@@ -834,6 +834,7 @@ code {
 .skill__name { font-size: 0.9rem; font-weight: 500; color: var(--t1); }
 .skill__lv { font-family: var(--ff-m); font-size: 0.65rem; letter-spacing: 0.06em; }
 .lv--adv { color: var(--em); }
+.skill__note { margin: 0; font-family: var(--ff-m); font-size: 0.68rem; line-height: 1.5; color: var(--t3); }
 .lv--pro { color: var(--cy); }
 
 .skill__track {
